@@ -1,0 +1,6 @@
+build/
+
+public/
+
+# lock file
+yarn.lock

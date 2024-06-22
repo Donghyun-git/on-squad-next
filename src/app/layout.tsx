@@ -4,7 +4,6 @@ import { cn } from '@/lib/utils';
 import './globals.css';
 
 import { Wrapper } from '@/components/Wrapper';
-import { Appbar } from '@/components/Appbar';
 import { ShowBottomTab } from '@/components/ShowBottomTab';
 
 export const metadata: Metadata = {
@@ -22,7 +21,7 @@ export default function RootLayout({
       <script
         async
         src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"
-      ></script>
+      />
       <body className={cn('min-h-screen bg-background antialiased')}>
         <Providers>
           <Wrapper>

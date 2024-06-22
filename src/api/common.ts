@@ -1,8 +1,8 @@
-import createHttp from "http-request-fetch";
+import createHttp from 'http-request-fetch';
 
-const BASE_URL = process.env.REACT_APP_BASE_URL;
+const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL;
 
-const DEFAULT_CONFIG = { headers: { "Content-Type": "application/json" } };
+const DEFAULT_CONFIG = { headers: { 'Content-Type': 'application/json' } };
 
 /**
  * @example

@@ -3,9 +3,9 @@ import LoginForm from './LoginForm';
 
 const LoginPage = async () => {
   return (
-    <>
+    <div className="container">
       <LoginForm />
-    </>
+    </div>
   );
 };
 

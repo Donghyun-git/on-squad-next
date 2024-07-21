@@ -1,10 +1,12 @@
-"use client";
+'use client';
 
-import { ReactNode } from "react";
-import { usePathname } from "next/navigation";
-import { BottomTab } from "@/components/BottomTab";
+import { SessionProvider } from 'next-auth/react';
+import { ReactNode } from 'react';
+import { usePathname } from 'next/navigation';
+import { BottomTab } from '@/components/BottomTab';
 
-import { BOTTOMTAB_PATH } from "@/constants/paths";
+import { BOTTOMTAB_PATH } from '@/constants/paths';
+import { Appbar } from '../Appbar';
 
 const ShowBottomTab = ({ children }: { children: ReactNode | ReactNode[] }) => {
   const pathname = usePathname();
@@ -16,10 +18,12 @@ const ShowBottomTab = ({ children }: { children: ReactNode | ReactNode[] }) => {
   ].includes(pathname as ValueOf<typeof BOTTOMTAB_PATH>);
 
   return (
-    <>
-      <div className="pt-20">{children}</div>
+    <SessionProvider>
+      <Appbar />
+      <div className="pt-20 bg-gray-50">{children}</div>
       {isShow && <BottomTab />}
-    </>
+      <div className="min-w-[20rem] max-w-[67.5rem] h-20 mx-auto bg-gray-50" />
+    </SessionProvider>
   );
 };
 

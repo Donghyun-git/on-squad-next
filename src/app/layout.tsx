@@ -18,6 +18,13 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="ko">
+      <head>
+        <link
+          href="https://fonts.googleapis.com/css2?family=Pretendard:wght@400;500;700&display=swap"
+          rel="stylesheet"
+        />
+      </head>
+
       <script
         async
         src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"

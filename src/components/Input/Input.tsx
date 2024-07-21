@@ -9,6 +9,7 @@ interface CustomInputPropsType<T extends FieldValues> {
   name: Path<T>;
   label?: string;
   helperText?: string;
+  className?: string;
 
   type: 'email' | 'text' | 'password';
 
@@ -30,6 +31,7 @@ const CustomInput = <T extends FieldValues>(props: CustomInputPropsType<T>) => {
     type,
     helperText,
     extractNumber = false,
+    className,
     ...rest
   } = props;
 
@@ -72,7 +74,7 @@ const CustomInput = <T extends FieldValues>(props: CustomInputPropsType<T>) => {
                     : onChange
                 }
                 className={`${cn(
-                  `block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring focus:border-blue-300 ${
+                  `block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring focus:border-blue-300 ${className} ${
                     fieldError &&
                     'border-2 border-red-500 focus-visible:outline-red-500 focus-visible:border-red-500'
                   }`,

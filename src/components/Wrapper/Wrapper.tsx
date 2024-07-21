@@ -7,10 +7,9 @@ interface LayoutPropsType {
 
 const Wrapper = ({ children }: LayoutPropsType) => {
   return (
-    <div className="min-w-[20rem] max-w-[67.5rem] px-5 relative mx-auto">
-      <Appbar />
+    <main className="min-w-[20rem] max-w-[67.5rem] relative mx-auto">
       {children}
-    </div>
+    </main>
   );
 };
 

@@ -5,9 +5,12 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { loginSchema } from './validator';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/Input';
-import { userLoginPostFetch } from '@/api/user/userLoginPostFetch';
+import { signIn } from 'next-auth/react';
+import { useRouter } from 'next/navigation';
 
 const LoginForm = () => {
+  const router = useRouter();
+
   const method = useForm({
     resolver: yupResolver(loginSchema),
     values: {
@@ -20,9 +23,15 @@ const LoginForm = () => {
 
   const handleSubmit = submit(async () => {
     try {
-      const loginResponse = userLoginPostFetch(getValues());
+      await signIn('credentials', {
+        redirect: false,
+        callbackUrl: '/',
+        ...getValues(),
+      });
 
-      console.log(loginResponse);
+      alert('로그인 완료');
+
+      router.push('/');
     } catch (error) {
       console.error(error);
     }

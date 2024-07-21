@@ -2,7 +2,11 @@ import React from 'react';
 import JoinForm from './JoinForm';
 
 const JoinPage = () => {
-  return <JoinForm />;
+  return (
+    <div className="container">
+      <JoinForm />
+    </div>
+  );
 };
 
 export default JoinPage;

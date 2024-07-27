@@ -22,7 +22,8 @@ const Spinner = () => {
   return (
     <div className="fixed top-0 left-0 z-[111111] bg-black bg-opacity-40 w-screen h-screen flex flex-col justify-center items-center">
       <HashLoader size={40} color="#F87315" />
-      <div className="flex">
+
+      <div className="flex items-center">
         {loadingText.split('').map((text, i) => (
           <span
             key={i}

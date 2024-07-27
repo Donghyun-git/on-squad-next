@@ -12,6 +12,7 @@ interface PostButtonPropsType extends ButtonProps {
 
 /**
  * 작성 버튼
+ * -----
  * @example
  *  <PostButton onPageMove={handlePageMove}>
  *      <PencilLine size={12} strokeWidth={2} />
@@ -24,7 +25,9 @@ const PostButton = (props: PostButtonPropsType) => {
   return (
     <Button
       variant="outline"
-      className={cn(`px-1 py-0.5 rounded-full h-fit ${className}`)}
+      className={cn(
+        `px-1 py-0.5 rounded-full h-fit bg-white border-0 ${className}`,
+      )}
       onClick={onPageMove}
       {...rest}
     >

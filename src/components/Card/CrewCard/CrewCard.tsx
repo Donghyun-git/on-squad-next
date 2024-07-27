@@ -34,7 +34,7 @@ export interface CrewCardPropsType {
 
 /**
  * 크루카드
- * @example ---- 
+ * @example 
  *  <CrewCard
       title="크루명은 최대 15자 입니다."
       description="크루소개는 아무리 길어도 상관 없습니다. 크루소개는 아무리 길어도 상관 없습니다."
@@ -59,14 +59,13 @@ const CrewCard = (props: CrewCardPropsType) => {
   } = props;
 
   return (
-    <div className="w-[20rem] shadow-md rounded-2xl">
-      <div className="relative rounded-t-lg overflow-hidden w-[20rem] h-[15rem]">
+    <div className="w-[20rem] tablet:w-full mobile:w-full SE:w-full S2:w-full bg-white rounded-2xl cursor-pointer hover:shadow-md transition-all duration-200">
+      <div className="relative rounded-t-lg overflow-hidden w-[20rem] h-[15rem] tablet:w-full mobile:w-full SE:w-full S2:w-full">
         <Image
           src={crewImage}
           alt="크루이미지"
           fill
-          sizes="(max-width: 768px) 100vw, 33vw"
-          className="rounded-t-lg"
+          className="rounded-t-lg w-full"
         />
         <Text.xl className="absolute bottom-0 left-0 w-full p-2 flex items-center text-white bg-gradient-to-t from-black via-black/30 to-transparent backdrop-blur-sm  font-bold overflow-hidden truncate">
           {title}
@@ -81,7 +80,9 @@ const CrewCard = (props: CrewCardPropsType) => {
           {description}
         </Text.sm>
       </div>
-      <div className="px-2 py-1.5 flex items-center gap-1">{tagSlot}</div>
+      <div className="px-2 py-1.5 overflow-x-auto whitespace-nowrap flex no-scrollbar gap-1">
+        {tagSlot}
+      </div>
     </div>
   );
 };

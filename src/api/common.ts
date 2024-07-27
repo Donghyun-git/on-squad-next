@@ -7,7 +7,7 @@ export const apiFetch = async <T>(
   init?: RequestInit,
 ): Promise<{ data: T; status: number }> => {
   return returnFetch({
-    baseUrl: 'http://192.168.1.142:8083',
+    baseUrl: 'http://192.168.0.8:8083',
     headers: { Accept: 'application/json' },
     interceptors: {
       request: async (config: FetchArgs) => {

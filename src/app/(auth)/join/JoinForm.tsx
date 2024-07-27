@@ -40,7 +40,7 @@ const JoinForm = () => {
   return (
     <FormProvider {...method}>
       <form
-        className="flex flex-col gap-6 items-center mt-4 mb-8"
+        className="flex flex-col gap-6 items-center mt-4 pb-8"
         onSubmit={handleSubmit}
       >
         <div className="flex flex-col items-center w-full gap-2">

@@ -20,9 +20,11 @@ const ShowBottomTab = ({ children }: { children: ReactNode | ReactNode[] }) => {
   return (
     <SessionProvider>
       <Appbar />
-      <div className="pt-20 bg-gray-50">{children}</div>
+      <div className="pt-20 bg-gray-50 min-h-[calc(100dvh-5rem)]">
+        {children}
+      </div>
       {isShow && <BottomTab />}
-      <div className="min-w-[20rem] max-w-[67.5rem] h-20 mx-auto bg-gray-50" />
+      <div className="min-w-[20rem] max-w-[45rem] h-20 mx-auto bg-gray-50" />
     </SessionProvider>
   );
 };

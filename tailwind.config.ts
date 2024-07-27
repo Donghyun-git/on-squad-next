@@ -31,6 +31,14 @@ const config = {
       },
     },
     extend: {
+      screens: {
+        S2: { max: '320px' },
+        SE: { min: '321px', max: '400px' },
+        mobile: { min: '401px', max: '560px' },
+        tablet: { min: '561px', max: '720px' },
+        PC: { min: '721px' },
+      },
+
       colors: {
         border: 'hsl(var(--border))',
         input: 'hsl(var(--input))',
@@ -88,10 +96,15 @@ const config = {
           from: { height: 'var(--radix-accordion-content-height)' },
           to: { height: '0' },
         },
+        bounceInOrder: {
+          '0%, 100%': { transform: 'translateY(0)' },
+          '50%': { transform: 'translateY(-3px)' },
+        },
       },
       animation: {
         'accordion-down': 'accordion-down 0.2s ease-out',
         'accordion-up': 'accordion-up 0.2s ease-out',
+        bounceInOrder: 'bounceInOrder 1s infinite',
       },
     },
   },

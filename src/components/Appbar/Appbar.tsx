@@ -35,7 +35,7 @@ const Appbar = () => {
 
   if (headerTitle !== '') {
     return (
-      <div className="fixed left-1/2 transform -translate-x-1/2 w-full min-w-[20rem] max-w-[67.5rem] flex items-center justify-between bg-white z-[100] shadow-md">
+      <div className="fixed left-1/2 transform -translate-x-1/2 w-full min-w-[20rem] max-w-[45rem] flex items-center justify-between bg-white z-[100] shadow-md">
         <Link className="flex items-center w-20 h-14 ml-4" href={PATH.root}>
           <ChevronLeft color="#636363" strokeWidth={1.25} />
         </Link>
@@ -46,7 +46,7 @@ const Appbar = () => {
   }
 
   return (
-    <div className="fixed container left-1/2 transform -translate-x-1/2 w-full min-w-[20rem] max-w-[67.5rem] flex items-center justify-between bg-white z-[100] px-2">
+    <div className="fixed container left-1/2 transform -translate-x-1/2 w-full min-w-[20rem] max-w-[45rem] flex items-center justify-between bg-white z-[100] px-2">
       <Link className="relative w-20 h-20 ml-4" href={PATH.root}>
         <Image src="/icons/onsquad_logo.svg" alt="온스쿼드" fill priority />
       </Link>

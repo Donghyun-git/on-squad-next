@@ -80,7 +80,7 @@ const CrewCard = (props: CrewCardPropsType) => {
           {description}
         </Text.sm>
       </div>
-      <div className="px-2 py-1.5 overflow-x-auto whitespace-nowrap flex no-scrollbar gap-1">
+      <div className="px-2 py-1.5 overflow-x-auto whitespace-nowrap flex no-scrollbar gap-1 rounded-b-[1.1rem]">
         {tagSlot}
       </div>
     </div>

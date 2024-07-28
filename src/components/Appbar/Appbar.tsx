@@ -25,6 +25,8 @@ import { Profile } from '../Profile';
 import { signOut } from 'next-auth/react';
 import { Badge } from '@/components/ui/badge';
 
+import { NavButton } from '@/components/NavButton';
+
 const Appbar = () => {
   const { data: session } = useSession();
 
@@ -146,20 +148,20 @@ const Appbar = () => {
                   <ul>
                     <li>
                       <SheetDescription className="w-full mb-3">
-                        마이페이지
+                        MENU
                       </SheetDescription>
-                      <Button
-                        variant="secondary"
-                        className="w-full justify-start bg-gray-200"
-                      >
-                        마이페이지
-                      </Button>
+                      <NavButton>마이페이지</NavButton>
                     </li>
                     <li className="mt-6">
                       <SheetDescription className="w-full">
                         버전
                       </SheetDescription>
-                      <Badge className="bg-gray-200 text-black">v1.0.0</Badge>
+                      <Badge
+                        variant="outline"
+                        className="bg-white text-primary border-primary"
+                      >
+                        v1.0.0
+                      </Badge>
                     </li>
                   </ul>
                 </div>

@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import Providers from '@/services/providers';
 import { cn } from '@/lib/utils';
+import { Toaster } from '@/components/ui/toaster';
 import './globals.css';
 
 import { Wrapper } from '@/components/Wrapper';
@@ -35,6 +36,7 @@ export default function RootLayout({
             <ShowBottomTab>{children}</ShowBottomTab>
           </Wrapper>
         </Providers>
+        <Toaster />
       </body>
     </html>
   );

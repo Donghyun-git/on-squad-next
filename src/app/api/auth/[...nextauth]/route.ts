@@ -3,6 +3,7 @@ import NextAuth, { NextAuthOptions } from 'next-auth';
 
 import { userLoginPostFetch } from '@/api/user/userLoginPostFetch';
 import { userInfoGetFetch } from '@/api/user/userInfoGetFetch';
+import { PATH } from '@/constants/paths';
 
 export const authOptions: NextAuthOptions = {
   providers: [
@@ -97,7 +98,7 @@ export const authOptions: NextAuthOptions = {
   secret: process.env.AUTH_SECRET,
 
   pages: {
-    signIn: '/',
+    signIn: PATH.root,
   },
 };
 

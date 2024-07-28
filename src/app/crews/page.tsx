@@ -60,7 +60,10 @@ const CrewPage = () => {
             <Text.lg className="font-semibold">
               <h3>나의 크루</h3>
             </Text.lg>
-            <PostButton onPageMove={() => router.push(PATH.community)}>
+            <PostButton
+              className="mr-4 px-2"
+              onPageMove={() => router.push(PATH.community)}
+            >
               <Text.xxs className="ml-1 font-bold">
                 모집중인 크루 보러가기
               </Text.xxs>

@@ -1,6 +1,6 @@
 //TODO: page 컴포넌트 서버컴포넌트로 분리하고 handler를 사용하는 section 별로 클라이언트 컴포넌트로 분리해야한다.
 'use client';
-import { useState } from 'react';
+import { useRouter } from 'next/navigation';
 
 import { Text } from '@/components/Text';
 import { Article } from '@/components/Article';
@@ -13,11 +13,14 @@ import { Plus } from 'lucide-react';
 import { CrewCard } from '@/components/Card/CrewCard';
 import { Badge } from '@/components/Badge';
 import { SearchContainer } from './_component/SearchContainer';
+import { PATH } from '@/constants/paths';
 
 /**
  * 랜딩
  */
 export default function Home() {
+  const router = useRouter();
+
   return (
     <div className="w-full h-full bg-gray-50">
       <div className="container px-2">
@@ -181,6 +184,15 @@ export default function Home() {
               </div>
             }
           />
+          <div className="flex justify-center pb-6">
+            <Button
+              className="p-2 h-fit font-semibold text-[#909090] hover:text-[#6C6C6C] active:text-[#464646]"
+              variant="ghost"
+              onClick={() => router.push(PATH.community)}
+            >
+              모집중인 크루 더 보러가기
+            </Button>
+          </div>
         </section>
       </div>
     </div>

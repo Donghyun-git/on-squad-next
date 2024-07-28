@@ -1,11 +1,13 @@
 'use client';
 
-import React from 'react';
+import React, { useState } from 'react';
 import Image from 'next/image';
 import { ChevronLeft, Plus, Text as TextIcon } from 'lucide-react';
 import { usePathname } from 'next/navigation';
-import { HEADER_TEXT } from '@/constants';
 import { useSession } from 'next-auth/react';
+import { signOut } from 'next-auth/react';
+import Link from 'next/link';
+import { cn } from '@/lib/utils';
 
 import {
   Sheet,
@@ -18,14 +20,13 @@ import {
 } from '@/components/ui/sheet';
 import { Button } from '@/components/ui/button';
 import { Separator } from '@/components/ui/separator';
-import { Text } from '../Text';
-import Link from 'next/link';
-import { PATH } from '@/constants/paths';
-import { Profile } from '../Profile';
-import { signOut } from 'next-auth/react';
 import { Badge } from '@/components/ui/badge';
-
 import { NavButton } from '@/components/NavButton';
+import { Text } from '../Text';
+import { Profile } from '../Profile';
+
+import { PATH } from '@/constants/paths';
+import { HEADER_TEXT } from '@/constants';
 
 const Appbar = () => {
   const { data: session } = useSession();
@@ -35,9 +36,11 @@ const Appbar = () => {
   const headerTitle =
     HEADER_TEXT.find((item) => item.path === pathname)?.title ?? '';
 
+  const [isOpen, setIsOpen] = useState<boolean>(false);
+
   if (headerTitle !== '') {
     return (
-      <div className="fixed left-1/2 transform -translate-x-1/2 w-full min-w-[20rem] max-w-[45rem] flex items-center justify-between bg-white z-[100] shadow-md">
+      <div className="fixed left-1/2 transform -translate-x-1/2 w-full min-w-[20rem] max-w-[45rem] flex items-center justify-between bg-white z-[100] shadow-md-bottom">
         <Link className="flex items-center w-20 h-14 ml-4" href={PATH.root}>
           <ChevronLeft color="#636363" strokeWidth={1.25} />
         </Link>
@@ -48,7 +51,13 @@ const Appbar = () => {
   }
 
   return (
-    <div className="fixed container left-1/2 transform -translate-x-1/2 w-full min-w-[20rem] max-w-[45rem] flex items-center justify-between bg-white z-[100] px-2">
+    <div
+      className={cn(
+        `fixed left-1/2 transform -translate-x-1/2 w-full min-w-[20rem] max-w-[45rem] flex items-center justify-between bg-white z-[100] ${
+          !isOpen && 'shadow-md-bottom'
+        }`,
+      )}
+    >
       <Link className="relative w-20 h-20 ml-4" href={PATH.root}>
         <Image src="/icons/onsquad_logo.svg" alt="온스쿼드" fill priority />
       </Link>
@@ -64,7 +73,7 @@ const Appbar = () => {
           </Button>
         ) : null}
 
-        <Sheet>
+        <Sheet onOpenChange={(value) => setIsOpen(value)}>
           <SheetOverlay />
           <SheetTrigger asChild>
             <TextIcon

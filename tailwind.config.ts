@@ -31,6 +31,10 @@ const config = {
       },
     },
     extend: {
+      boxShadow: {
+        'md-bottom': ' 0 4px 2px -2px rgba(0, 0, 0, 0.1)',
+      },
+
       screens: {
         S2: { max: '320px' },
         SE: { min: '321px', max: '400px' },

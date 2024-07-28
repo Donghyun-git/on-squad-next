@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import { useForm, FormProvider } from 'react-hook-form';
+
 import { yupResolver } from '@hookform/resolvers/yup';
 import { loginSchema } from './validator';
 import { Button } from '@/components/ui/button';
@@ -9,6 +10,8 @@ import { Input } from '@/components/Input';
 import { signIn } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
 import { Spinner } from '@/components/Spinner';
+
+import { PATH } from '@/constants/paths';
 
 const LoginForm = () => {
   const router = useRouter();
@@ -29,17 +32,25 @@ const LoginForm = () => {
     setDisplaySpinner(true);
 
     try {
-      await signIn('credentials', {
+      const signInRes = await signIn('credentials', {
         redirect: false,
-        callbackUrl: '/',
+        callbackUrl: PATH.root,
         ...getValues(),
       });
+
+      if (!signInRes?.ok) {
+        setDisplaySpinner(false);
+
+        alert('로그인 실패');
+
+        return;
+      }
 
       setDisplaySpinner(false);
 
       alert('로그인 완료');
 
-      router.push('/');
+      router.push(PATH.root);
     } catch (error) {
       setDisplaySpinner(false);
 
@@ -67,6 +78,16 @@ const LoginForm = () => {
             로그인
           </Button>
         </form>
+
+        <div className="flex justify-center items-center">
+          <Button
+            className="w-fit text-center mt-7 text-gray-500 hover:text-gray-600 active:text-gray-700"
+            variant="ghost"
+            onClick={() => router.push(PATH.join)}
+          >
+            회원가입
+          </Button>
+        </div>
       </FormProvider>
     </>
   );

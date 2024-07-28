@@ -1,6 +1,8 @@
 import { NextResponse } from 'next/server';
-import type { NextRequest } from 'next/server';
 import { cookies } from 'next/headers';
+import type { NextRequest } from 'next/server';
+
+import { PATH } from './constants/paths';
 
 export async function middleware(request: NextRequest) {
   const cookieStore = cookies();
@@ -10,7 +12,7 @@ export async function middleware(request: NextRequest) {
     const protectedPaths = ['/login', '/join'];
 
     if (protectedPaths.includes(request.nextUrl.pathname)) {
-      const root = new URL('/', request.url);
+      const root = new URL(PATH.root, request.url);
 
       return NextResponse.redirect(root);
     }

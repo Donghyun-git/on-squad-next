@@ -1,27 +1,25 @@
 'use client';
 
 import React from 'react';
-import { useForm, FormProvider } from 'react-hook-form';
-import { yupResolver } from '@hookform/resolvers/yup';
+import { useFormContext, FormProvider } from 'react-hook-form';
 import { Input } from '../Input';
-import { searchSchema } from './validator';
+import { cn } from '@/lib/utils';
 import { Button } from '@/components/ui/button';
 
 import { Search } from 'lucide-react';
 
 interface SearchbarPropsType {
+  className?: string;
   onSubmit: () => Promise<void>;
 }
 
+/**
+ * react-hook-form의 method를 props로 받는 검색 공통 컴포넌트
+ */
 const Searchbar = (props: SearchbarPropsType) => {
-  const { onSubmit } = props;
+  const { className, onSubmit } = props;
 
-  const method = useForm({
-    resolver: yupResolver(searchSchema),
-    values: {
-      search: '',
-    },
-  });
+  const method = useFormContext();
 
   const { handleSubmit: submit } = method;
 
@@ -30,7 +28,7 @@ const Searchbar = (props: SearchbarPropsType) => {
       <form onSubmit={submit(onSubmit)}>
         <div className="relative">
           <Input
-            className="pr-10"
+            className={cn(`pr-10 ${className}`)}
             name="search"
             type="text"
             placeholder="크루를 검색해보세요."
@@ -40,6 +38,7 @@ const Searchbar = (props: SearchbarPropsType) => {
               className="px-1 py-1 mx-1 m-1 h-fit active:bg-gray-200"
               variant="ghost"
               formAction="submit"
+              onClick={submit(onSubmit)}
             >
               <Search stroke="#8c8c8c" size={16} />
             </Button>

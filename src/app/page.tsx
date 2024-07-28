@@ -3,7 +3,6 @@
 import { useState } from 'react';
 
 import { Text } from '@/components/Text';
-import { Searchbar } from '@/components/Searchbar';
 import { Article } from '@/components/Article';
 
 import Image from 'next/image';
@@ -13,6 +12,7 @@ import { Plus } from 'lucide-react';
 
 import { CrewCard } from '@/components/Card/CrewCard';
 import { Badge } from '@/components/Badge';
+import { SearchContainer } from './_component/SearchContainer';
 
 /**
  * 랜딩
@@ -61,7 +61,7 @@ export default function Home() {
           />
         </div>
         <div className="mt-6 mb-14 w-1/2 mx-auto tablet:w-11/12 mobile:w-11/12 S2:w-11/12 SE:w-11/12">
-          <Searchbar onSubmit={async () => alert('TODO: 검색 API')} />
+          <SearchContainer />
         </div>
 
         <section className="flex items-center w-full justify-center gap-4 tablet:flex-col mobile:flex-col SE:flex-col S2:flex-col">
@@ -78,8 +78,10 @@ export default function Home() {
                   </Button>
                 </div>
                 <div className="grow flex flex-col items-center justify-center gap-9 mt-24">
-                  <Text.sm>크루 랭킹이 없습니다.</Text.sm>
-                  <Button>크루 개설하기</Button>
+                  <Text.sm className="font-semibold">
+                    크루 랭킹이 없습니다.
+                  </Text.sm>
+                  <Button className="w-full">크루 개설하기</Button>
                 </div>
               </div>
             }

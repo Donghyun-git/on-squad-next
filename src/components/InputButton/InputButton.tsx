@@ -13,8 +13,8 @@ const InputButton = (props: InputButtonPropsType) => {
     buttonText,
     onSubmit,
     leftIcon,
-    backgroundColor = '#d9d9d9',
-    color = '#b3b3b3',
+    backgroundColor = '#f8f8f8',
+    color = '#909090',
     ...rest
   } = props;
 

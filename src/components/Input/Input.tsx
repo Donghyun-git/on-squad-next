@@ -74,7 +74,7 @@ const CustomInput = <T extends FieldValues>(props: CustomInputPropsType<T>) => {
                     : onChange
                 }
                 className={`${cn(
-                  `block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring focus:border-blue-300 ${className} ${
+                  ` placeholder:text-[#909090] block w-full px-3 py-2 border border-[#f8f8f8] rounded-md  focus:outline-none focus:ring focus:border-blue-300 ${className} ${
                     fieldError &&
                     'border-2 border-red-500 focus-visible:outline-red-500 focus-visible:border-red-500'
                   }`,

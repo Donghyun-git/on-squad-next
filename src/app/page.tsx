@@ -29,17 +29,17 @@ export default function Home() {
             src="/images/main_banner.svg"
             width={220}
             height={110}
-            className="mobile:inline-block hidden mobile:mb-12 tablet:inline-block tablet:mb-12 SE:inline-block S2:inline-block SE:mb-12 S2:mb-12"
+            className="hidden w-auto h-auto mobile:inline-block mobile:mb-12 tablet:inline-block tablet:mb-12 SE:inline-block S2:inline-block SE:mb-12 S2:mb-12"
             alt="온스쿼드 배너"
           />
-          <div className="text-white font-semibold">
+          <div className="font-semibold text-white">
             <Text.lg className="mb-1 S2:text-sm">
               모임이 좋았을 뿐인데,,,
             </Text.lg>
             <Text.xxl className="mb-2">
               <h2 className="flex items-center S2:text-xs">
                 점점{' '}
-                <Text.xxxl className="font-extrabold ml-1 S2:text-xl">
+                <Text.xxxl className="ml-1 font-extrabold S2:text-xl">
                   부담
                 </Text.xxxl>
                 이 되고 있다면?
@@ -49,6 +49,7 @@ export default function Home() {
               <Image
                 src="/icons/onsquad_logo.svg"
                 alt="온스쿼드 로고"
+                className="w-auto h-auto"
                 width={150}
                 height={50}
               />
@@ -59,20 +60,20 @@ export default function Home() {
             src="/images/main_banner.svg"
             width={220}
             height={110}
-            className="mobile:hidden tablet:hidden SE:hidden S2:hidden"
+            className="w-auto h-auto mobile:hidden tablet:hidden SE:hidden S2:hidden"
             alt="온스쿼드 배너"
           />
         </div>
-        <div className="mt-6 mb-14 w-1/2 mx-auto tablet:w-11/12 mobile:w-11/12 S2:w-11/12 SE:w-11/12">
+        <div className="w-1/2 mx-auto mt-6 mb-14 tablet:w-11/12 mobile:w-11/12 S2:w-11/12 SE:w-11/12">
           <SearchContainer />
         </div>
 
-        <section className="flex items-center w-full justify-center gap-4 tablet:flex-col mobile:flex-col SE:flex-col S2:flex-col">
+        <section className="flex items-center justify-center w-full gap-4 tablet:flex-col mobile:flex-col SE:flex-col S2:flex-col">
           <Article
             className="w-full shadow-sm basis-2/5 min-h-96"
             slot={
               <div>
-                <div className="flex justify-between items-center">
+                <div className="flex items-center justify-between">
                   <Text.lg className="font-semibold">
                     <h3>크루 랭킹</h3>
                   </Text.lg>
@@ -80,7 +81,7 @@ export default function Home() {
                     더보기
                   </Button>
                 </div>
-                <div className="grow flex flex-col items-center justify-center gap-9 mt-24">
+                <div className="flex flex-col items-center justify-center mt-24 grow gap-9">
                   <Text.sm className="font-semibold">
                     크루 랭킹이 없습니다.
                   </Text.sm>
@@ -111,7 +112,7 @@ export default function Home() {
             className="w-full min-h-96 bg-inherit"
             slot={
               <div>
-                <div className="flex justify-between items-center">
+                <div className="flex items-center justify-between">
                   <Text.lg className="font-semibold">
                     <h3>모집중인 크루</h3>
                   </Text.lg>

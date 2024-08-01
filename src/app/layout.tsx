@@ -1,4 +1,6 @@
 import type { Metadata } from 'next';
+import Script from 'next/script';
+
 import Providers from '@/services/providers';
 import { cn } from '@/lib/utils';
 import { Toaster } from '@/components/ui/toaster';
@@ -26,8 +28,8 @@ export default function RootLayout({
         />
       </head>
 
-      <script
-        async
+      <Script
+        strategy="lazyOnload"
         src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"
       />
       <body className={cn('min-h-screen bg-background antialiased')}>

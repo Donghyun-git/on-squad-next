@@ -5,7 +5,6 @@ import Image from 'next/image';
 import { ChevronLeft, Plus, Text as TextIcon } from 'lucide-react';
 import { usePathname } from 'next/navigation';
 import { useSession } from 'next-auth/react';
-import { signOut } from 'next-auth/react';
 import Link from 'next/link';
 import { cn } from '@/lib/utils';
 
@@ -20,16 +19,21 @@ import {
 } from '@/components/ui/sheet';
 import { Button } from '@/components/ui/button';
 import { Separator } from '@/components/ui/separator';
-import { Badge } from '@/components/ui/badge';
 import { NavButton } from '@/components/NavButton';
 import { Text } from '../Text';
 import { Profile } from '../Profile';
 
 import { PATH } from '@/constants/paths';
 import { HEADER_TEXT } from '@/constants';
+import { useModalStackStore } from '@/store/useModalStackStore';
 
+import { CountLabel } from '../CountLabel';
+
+//TODO: 뭔가 서버컴포넌트여야할 것 같아요....
 const Appbar = () => {
   const { data: session } = useSession();
+
+  const modalStack = useModalStackStore((state) => state.modalStack);
 
   const pathname = usePathname();
 
@@ -40,7 +44,12 @@ const Appbar = () => {
 
   if (headerTitle !== '') {
     return (
-      <div className="fixed left-1/2 transform -translate-x-1/2 w-full min-w-[20rem] max-w-[45rem] flex items-center justify-between bg-white z-[100] shadow-md-bottom">
+      <div
+        className={cn(
+          'fixed left-1/2 transform -translate-x-1/2 w-full min-w-[20rem] max-w-[45rem] flex items-center justify-between z-[100] shadow-md-bottom',
+          modalStack.length > 0 ? 'bg-gray50 shadow-none' : 'bg-white',
+        )}
+      >
         <Link className="flex items-center w-20 h-14 ml-4" href={PATH.root}>
           <ChevronLeft color="#636363" strokeWidth={1.25} />
         </Link>
@@ -53,9 +62,9 @@ const Appbar = () => {
   return (
     <div
       className={cn(
-        `fixed left-1/2 transform -translate-x-1/2 w-full min-w-[20rem] max-w-[45rem] flex items-center justify-between bg-white z-[100] ${
+        `fixed left-1/2 transform -translate-x-1/2 w-full min-w-[20rem] max-w-[45rem] flex items-center justify-between z-[100] ${
           !isOpen && 'shadow-md-bottom'
-        }`,
+        } ${modalStack.length > 0 ? 'bg-gray50 shadow-none' : 'bg-white'}`,
       )}
     >
       <Link className="relative w-20 h-20 ml-4" href={PATH.root}>
@@ -66,7 +75,11 @@ const Appbar = () => {
         {session ? (
           <Button
             variant="outline"
-            className="h-fit p-2 flex items-center gap-0.5"
+            className={cn(
+              `h-fit p-2 flex items-center gap-0.5 ${
+                modalStack.length > 0 ? 'bg-gray50' : 'bg-white'
+              }`,
+            )}
           >
             <Text.xs>크루 개설하기</Text.xs>
             <Plus className="mb-0.5" size={8} strokeWidth={2} />
@@ -82,7 +95,7 @@ const Appbar = () => {
               className="cursor-pointer"
             />
           </SheetTrigger>
-          <SheetContent className="top-20 rounded-tl-2xl focus-visible:border-0 focus-visible:outline-0">
+          <SheetContent className="bg-grayscale100 top-20 rounded-tl-2xl focus-visible:border-0 focus-visible:outline-0 overflow-y-auto no-scroll-bar">
             <SheetTitle className="mt-5">
               <Profile session={session} />
             </SheetTitle>
@@ -135,46 +148,62 @@ const Appbar = () => {
                 </div>
               </>
             ) : (
-              <>
+              <div className="flex flex-col">
                 <div className="flex flex-col items-center justify-center gap-2 mt-6">
                   <SheetClose asChild>
-                    <Button
-                      className="w-full font-semibold"
-                      variant="outline"
-                      onClick={() => {
-                        if (confirm('로그아웃 하시겠어요?')) {
-                          signOut();
-                        }
-                      }}
-                    >
-                      로그아웃
-                    </Button>
+                    <NavButton>프로필편집</NavButton>
                   </SheetClose>
                 </div>
                 <Separator className="my-6" />
-
-                <div className="mb-4">
-                  <ul>
+                <div className="flex flex-col flex-grow">
+                  <ul className="flex flex-col">
                     <li>
                       <SheetDescription className="w-full mb-3">
-                        MENU
+                        계정정보
                       </SheetDescription>
-                      <NavButton>마이페이지</NavButton>
+                      <div className="px-3 py-2 text-grayscale700">
+                        {session.email}
+                      </div>
+                      <NavButton>비밀번호 변경</NavButton>
                     </li>
-                    <li className="mt-6">
-                      <SheetDescription className="w-full">
-                        버전
+                    <li>
+                      <Separator className="mt-6 mb-3" />
+                    </li>
+                    <li className="mt-3">
+                      <SheetDescription className="w-full mb-3">
+                        내 활동
                       </SheetDescription>
-                      <Badge
-                        variant="outline"
-                        className="bg-white text-primary border-primary"
-                      >
-                        v1.0.0
-                      </Badge>
+                      <div className="flex flex-col gap-2">
+                        <NavButton>
+                          <div className="flex gap-2 items-center">
+                            <span>내 크루</span>
+                            <CountLabel count={12} />
+                          </div>
+                        </NavButton>
+                        <NavButton>
+                          <div className="flex gap-2 items-center">
+                            <span>합류신청</span>
+                            <CountLabel count={12} />
+                          </div>
+                        </NavButton>
+                        <NavButton>
+                          <div className="flex gap-2 items-center">
+                            <span>활동내역</span>
+                            <CountLabel count={12} />
+                          </div>
+                        </NavButton>
+                      </div>
+                    </li>
+                    <li>
+                      <Separator className="my-6" />
+                    </li>
+                    <li className="text-center text-grayscale500 font-semibold">
+                      <p className="text-center">최신 버전입니다.</p>
+                      <p className="text-center">app ver 1.0.0</p>
                     </li>
                   </ul>
                 </div>
-              </>
+              </div>
             )}
           </SheetContent>
         </Sheet>

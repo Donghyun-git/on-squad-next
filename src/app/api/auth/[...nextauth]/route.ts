@@ -99,6 +99,7 @@ export const authOptions: NextAuthOptions = {
 
   pages: {
     signIn: PATH.root,
+    signOut: PATH.root,
   },
 };
 

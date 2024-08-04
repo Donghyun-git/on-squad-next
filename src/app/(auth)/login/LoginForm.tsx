@@ -10,11 +10,15 @@ import { Input } from '@/components/Input';
 import { signIn } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
 import { Spinner } from '@/components/Spinner';
+import { TOAST } from '@/constants/toast';
+import { useToast } from '@/hooks/useToast';
 
 import { PATH } from '@/constants/paths';
+import { CircleX } from 'lucide-react';
 
 const LoginForm = () => {
   const router = useRouter();
+  const { toast, hide } = useToast();
 
   const [displaySpinner, setDisplaySpinner] = useState<boolean>(false);
 
@@ -41,14 +45,22 @@ const LoginForm = () => {
       if (!signInRes?.ok) {
         setDisplaySpinner(false);
 
-        alert('로그인 실패');
+        toast({
+          title: signInRes?.error || '로그인 실패',
+          className: TOAST.error,
+          icon: <CircleX onClick={() => hide()} />,
+        });
 
         return;
       }
 
       setDisplaySpinner(false);
 
-      alert('로그인 완료');
+      toast({
+        title: '로그인 완료',
+        className: TOAST.success,
+        icon: <CircleX onClick={() => hide()} />,
+      });
 
       router.push(PATH.root);
     } catch (error) {

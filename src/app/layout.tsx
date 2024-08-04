@@ -8,6 +8,7 @@ import './globals.css';
 
 import { Wrapper } from '@/components/Wrapper';
 import { ShowBottomTab } from '@/components/ShowBottomTab';
+import { Modal } from '@/components/Modal';
 
 export const metadata: Metadata = {
   title: '온스쿼드 - 취미생활의 아지트',
@@ -39,6 +40,7 @@ export default function RootLayout({
           </Wrapper>
         </Providers>
         <Toaster />
+        <Modal />
       </body>
     </html>
   );

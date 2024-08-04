@@ -12,6 +12,7 @@
   },
   "dependencies": {
     "@hookform/resolvers": "^3.6.0",
+    "@radix-ui/react-alert-dialog": "^1.1.1",
     "@radix-ui/react-avatar": "^1.1.0",
     "@radix-ui/react-dialog": "^1.1.1",
     "@radix-ui/react-label": "^2.1.0",
@@ -21,6 +22,7 @@
     "@radix-ui/react-toast": "^1.2.1",
     "@tanstack/react-query": "^5.45.1",
     "class-variance-authority": "^0.7.0",
+    "classnames": "^2.5.1",
     "clsx": "^2.1.1",
     "dayjs": "^1.11.11",
     "http-request-fetch": "^1.0.1",
@@ -40,6 +42,8 @@
   },
   "devDependencies": {
     "@tanstack/react-query-devtools": "^5.45.1",
+    "@testing-library/jest-dom": "^6.4.8",
+    "@types/jest": "^29.5.12",
     "@types/node": "^20",
     "@types/react": "^18",
     "@types/react-dom": "^18",

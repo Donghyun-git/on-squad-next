@@ -65,6 +65,7 @@ const CrewCard = (props: CrewCardPropsType) => {
           src={crewImage}
           alt="크루이미지"
           fill
+          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
           className="rounded-t-lg w-full"
         />
         <Text.xl className="absolute bottom-0 left-0 w-full p-2 flex items-center text-white bg-gradient-to-t from-black via-black/30 to-transparent backdrop-blur-sm  font-bold overflow-hidden truncate">

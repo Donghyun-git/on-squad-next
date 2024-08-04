@@ -16,10 +16,7 @@ const Profile = (props: ProfilePropsType) => {
         <span>로그인 후 이용해주세요!</span>
       ) : (
         <>
-          <span className="text-center">
-            만나서 반가워요! <br />
-            {session.nickname} 님
-          </span>
+          <span className="text-center">{session.nickname}</span>
         </>
       )}
     </div>

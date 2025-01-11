@@ -13,7 +13,7 @@ const CustomBadge = (props: BadgePropsType) => {
   return (
     <Badge
       className={cn(
-        `${className} bg-secondary rounded-md px-1.5 hover:bg-secondary active:bg-secondary font-bold`,
+        `bg-secondary rounded-md px-1.5 hover:bg-secondary active:bg-secondary font-bold ${className} `,
       )}
       {...rest}
     >

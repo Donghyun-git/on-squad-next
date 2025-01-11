@@ -19,7 +19,7 @@ const CommunityContainer = () => {
   return (
     <FormProvider {...method}>
       <div className="min-h-40 bg-[#d9d9d9]">
-        <div className="container px-5">
+        <div className="container px-5 pt-20">
           <Text.lg className="pt-14 font-semibold text-center">
             <h3>크루탐색(배너이미지 들어 갈 예정)</h3>
           </Text.lg>
@@ -28,7 +28,7 @@ const CommunityContainer = () => {
           </div>
         </div>
       </div>
-      <div className="container px-5 pb-6">
+      <div className="container px-5 pb-12">
         <Text.lg className="pt-14 font-semibold">
           <h3>모집중인 크루</h3>
         </Text.lg>

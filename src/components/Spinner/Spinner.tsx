@@ -4,10 +4,17 @@ import React, { useEffect } from 'react';
 import { HashLoader } from 'react-spinners';
 import { cn } from '@/lib/utils';
 
-//TODO: 로딩 텍스트를 props로 받을까 통일할까 논의 필요 ..
+export interface SpinnerPropsType {
+  /**
+   * Spinner text
+   */
+  helperText?: string;
 
-const Spinner = () => {
-  const loadingText = '취미생활의 즐거움';
+  splitCount?: number;
+}
+
+const Spinner = (props: SpinnerPropsType) => {
+  const { helperText = '취미생활의 즐거움', splitCount = 5 } = props;
 
   useEffect(() => {
     const body = document.body;
@@ -24,12 +31,12 @@ const Spinner = () => {
       <HashLoader size={40} color="#F87315" />
 
       <div className="flex items-center">
-        {loadingText.split('').map((text, i) => (
+        {helperText.split('').map((text, i) => (
           <span
             key={i}
             className={cn(
               `font-semibold text-primary text-lg inline-block animate-bounceInOrder mt-4 ${
-                i === 5 && 'ml-2'
+                i === splitCount && 'ml-2'
               }`,
             )}
             style={{ animationDelay: `${i * 0.2}s` }}

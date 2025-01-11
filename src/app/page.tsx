@@ -4,14 +4,41 @@ import Image from 'next/image';
 import { SearchContainer } from './_component/SearchContainer';
 import { CrewList } from './_component/CrewList';
 import { MainDashboard } from './_component/MainDashboard';
+import { Appbar } from '@/components/Appbar';
+import { getQueryClient } from '@/services/get-query-client';
+import {
+  crewListOptions,
+  CREW_LIST_QUERY_KEY,
+} from '@/services/options/crewListOptions';
+import { CrewListResponseProps } from '@/api/crew/crewListGetFetch';
+import { HydrationBoundary, dehydrate } from '@tanstack/react-query';
 
+import { crewListGetFetch } from '@/api/crew/crewListGetFetch';
+import { Suspense } from 'react';
+import dynamic from 'next/dynamic';
+
+// const CrewList = dynamic(
+//   () => import('./_component/CrewList').then((rcc) => rcc.CrewList),
+//   { ssr: false },
+// );
+
+export type CrewListDataType = PropType<CrewListResponseProps, 'data'>;
 /**
  * 랜딩
  */
-export default function Home() {
+export default async function Home() {
+  const queryClient = getQueryClient();
+
+  await queryClient.prefetchQuery(crewListOptions);
+
+  const crewListData = queryClient.getQueryData<CrewListDataType>([
+    CREW_LIST_QUERY_KEY,
+  ]);
+
   return (
     <div className="w-full h-full bg-gray-50">
-      <div className="container px-2">
+      <Appbar />
+      <div className="container px-2 pt-20">
         <div className="w-full bg-[#144A7D] ease-linear p-9 flex justify-between items-center rounded-xl mt-6 mobile:flex-col tablet:flex-col SE:flex-col S2:flex-col">
           <Image
             src="/images/main_banner.svg"
@@ -62,7 +89,9 @@ export default function Home() {
           <MainDashboard />
         </section>
         <section>
-          <CrewList />
+          <HydrationBoundary state={dehydrate(queryClient)}>
+            <CrewList list={crewListData ?? []} />
+          </HydrationBoundary>
         </section>
       </div>
     </div>

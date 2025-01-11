@@ -34,7 +34,7 @@ const BottomTab = () => {
               key={item.location}
               className={cn(
                 `cursor-pointer relative flex-grow text-center py-3 no-underline text-black w-[33%] flex justify-center items-center flex-col gap-1 ${
-                  isActive && 'bg-orange-500 rounded-md'
+                  isActive && 'text-primary bg-primary rounded-md'
                 }`,
               )}
               onClick={() =>
@@ -96,7 +96,9 @@ const BottomTab = () => {
 
               <span
                 className={cn(
-                  `text-[0.78rem] ${isActive ? 'text-white' : 'text-gray-400'}`,
+                  `text-[0.78rem] ${
+                    isActive ? 'text-primary bg-primary' : 'text-gray-400'
+                  }`,
                 )}
               >
                 {rest.menu}
@@ -110,7 +112,7 @@ const BottomTab = () => {
               href={item.location}
               className={cn(
                 `cursor-pointer relative flex-grow text-center py-3 no-underline text-black w-[33%] flex justify-center items-center flex-col gap-1 ${
-                  isActive && 'bg-orange-500 rounded-md'
+                  isActive && 'text-primary rounded-md'
                 }`,
               )}
             >
@@ -125,7 +127,9 @@ const BottomTab = () => {
 
               <span
                 className={cn(
-                  `text-[0.78rem] ${isActive ? 'text-white' : 'text-gray-400'}`,
+                  `text-[0.78rem] ${
+                    isActive ? 'text-primary' : 'text-gray-400'
+                  }`,
                 )}
               >
                 {rest.menu}

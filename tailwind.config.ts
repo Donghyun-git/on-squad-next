@@ -21,7 +21,6 @@ const config = {
       none: 'none',
       blur: 'blur(4px)',
     },
-
     container: {
       center: true,
       padding: '2rem',
@@ -34,15 +33,26 @@ const config = {
       boxShadow: {
         'md-bottom': ' 0 4px 2px -2px rgba(0, 0, 0, 0.1)',
       },
-
       screens: {
-        S2: { max: '320px' },
-        SE: { min: '321px', max: '400px' },
-        mobile: { min: '401px', max: '560px' },
-        tablet: { min: '561px', max: '720px' },
-        PC: { min: '721px' },
+        S2: {
+          max: '320px',
+        },
+        SE: {
+          min: '321px',
+          max: '400px',
+        },
+        mobile: {
+          min: '401px',
+          max: '560px',
+        },
+        tablet: {
+          min: '561px',
+          max: '720px',
+        },
+        PC: {
+          min: '721px',
+        },
       },
-
       colors: {
         border: 'hsl(var(--border))',
         input: 'hsl(var(--input))',
@@ -60,7 +70,6 @@ const config = {
           hover: 'hsl(var(--kakao-hover))',
           text: 'hsl(var(--kakao-text))',
         },
-
         secondary: {
           DEFAULT: 'hsl(var(--secondary))',
           foreground: 'hsl(var(--secondary-foreground))',
@@ -85,7 +94,6 @@ const config = {
           DEFAULT: 'hsl(var(--card))',
           foreground: 'hsl(var(--card-foreground))',
         },
-
         white: '#FFFFFF',
         grayscale50: '#F0F0F0',
         grayscale100: '#F8F8F8',
@@ -185,16 +193,28 @@ const config = {
       },
       keyframes: {
         'accordion-down': {
-          from: { height: '0' },
-          to: { height: 'var(--radix-accordion-content-height)' },
+          from: {
+            height: '0',
+          },
+          to: {
+            height: 'var(--radix-accordion-content-height)',
+          },
         },
         'accordion-up': {
-          from: { height: 'var(--radix-accordion-content-height)' },
-          to: { height: '0' },
+          from: {
+            height: 'var(--radix-accordion-content-height)',
+          },
+          to: {
+            height: '0',
+          },
         },
         bounceInOrder: {
-          '0%, 100%': { transform: 'translateY(0)' },
-          '50%': { transform: 'translateY(-3px)' },
+          '0%, 100%': {
+            transform: 'translateY(0)',
+          },
+          '50%': {
+            transform: 'translateY(-3px)',
+          },
         },
       },
       animation: {

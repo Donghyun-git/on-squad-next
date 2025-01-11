@@ -3,7 +3,6 @@
 import React, { useState } from 'react';
 import Image from 'next/image';
 import { ChevronLeft, Plus, Text as TextIcon } from 'lucide-react';
-import { usePathname } from 'next/navigation';
 import { useSession } from 'next-auth/react';
 import Link from 'next/link';
 import { cn } from '@/lib/utils';
@@ -24,36 +23,41 @@ import { Text } from '../Text';
 import { Profile } from '../Profile';
 
 import { PATH } from '@/constants/paths';
-import { HEADER_TEXT } from '@/constants';
+import { useRouter } from 'next/navigation';
 import { useModalStackStore } from '@/store/useModalStackStore';
 
 import { CountLabel } from '../CountLabel';
 
+export interface AppbarPropsType {
+  isMenuHeader?: boolean;
+  title?: string;
+}
+
 //TODO: 뭔가 서버컴포넌트여야할 것 같아요....
-const Appbar = () => {
+const Appbar = ({ isMenuHeader = true, title }: AppbarPropsType) => {
   const { data: session } = useSession();
 
   const modalStack = useModalStackStore((state) => state.modalStack);
 
-  const pathname = usePathname();
-
-  const headerTitle =
-    HEADER_TEXT.find((item) => item.path === pathname)?.title ?? '';
-
   const [isOpen, setIsOpen] = useState<boolean>(false);
 
-  if (headerTitle !== '') {
+  const router = useRouter();
+
+  if (!isMenuHeader) {
     return (
       <div
         className={cn(
-          'fixed left-1/2 transform -translate-x-1/2 w-full min-w-[20rem] max-w-[45rem] flex items-center justify-between z-[100] shadow-md-bottom',
+          'fixed left-1/2 transform -translate-x-1/2 w-full min-w-[20rem] max-w-[45rem] top-0 flex items-center justify-between z-[100] shadow-md-bottom',
           modalStack.length > 0 ? 'bg-gray50 shadow-none' : 'bg-white',
         )}
       >
-        <Link className="flex items-center w-20 h-14 ml-4" href={PATH.root}>
+        <div
+          className="flex items-center w-20 h-14 ml-4 cursor-pointer"
+          onClick={() => router.back()}
+        >
           <ChevronLeft color="#636363" strokeWidth={1.25} />
-        </Link>
-        <h3 className="font-bold">{headerTitle}</h3>
+        </div>
+        <h3 className="font-bold">{title}</h3>
         <div className="w-20 mr-4"></div>
       </div>
     );
@@ -62,7 +66,7 @@ const Appbar = () => {
   return (
     <div
       className={cn(
-        `fixed left-1/2 transform -translate-x-1/2 w-full min-w-[20rem] max-w-[45rem] flex items-center justify-between z-[100] ${
+        `fixed left-1/2 transform -translate-x-1/2 w-full min-w-[20rem] max-w-[45rem] top-0 flex items-center justify-between z-[100] ${
           !isOpen && 'shadow-md-bottom'
         } ${modalStack.length > 0 ? 'bg-gray50 shadow-none' : 'bg-white'}`,
       )}
@@ -81,7 +85,9 @@ const Appbar = () => {
               }`,
             )}
           >
-            <Text.xs>크루 개설하기</Text.xs>
+            <Link href="/crews/new">
+              <Text.xs>크루 개설하기</Text.xs>
+            </Link>
             <Plus className="mb-0.5" size={8} strokeWidth={2} />
           </Button>
         ) : null}

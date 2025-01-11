@@ -28,6 +28,7 @@ const MainDashboard = () => {
           </div>
         }
       />
+
       <Article
         className="w-full shadow-sm basis-3/5 min-h-96"
         slot={

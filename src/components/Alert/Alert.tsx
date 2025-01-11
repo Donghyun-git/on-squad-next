@@ -11,7 +11,7 @@ import {
 } from '@/components/ui/alert-dialog';
 
 export interface AlertPropsType {
-  title: string;
+  title: ReactNode | string;
   children: ReactNode | ReactNode[];
   buttonSlot: ReactNode | ReactNode[];
 }

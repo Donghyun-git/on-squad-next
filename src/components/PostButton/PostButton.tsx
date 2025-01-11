@@ -1,13 +1,11 @@
 'use client';
 
-import { ReactNode } from 'react';
+import { forwardRef } from 'react';
 import { Button, ButtonProps } from '../ui/button';
 import { cn } from '@/lib/utils';
 
 interface PostButtonPropsType extends ButtonProps {
-  children: ReactNode | ReactNode[];
   onPageMove: () => void;
-  className?: string;
 }
 
 /**
@@ -19,21 +17,24 @@ interface PostButtonPropsType extends ButtonProps {
  *      <Text.xxs className="ml-1 font-bold">글쓰기</Text.xxs>
  *  </PostButton>
  */
-const PostButton = (props: PostButtonPropsType) => {
-  const { children, className, onPageMove, ...rest } = props;
+const PostButton = forwardRef<HTMLButtonElement, PostButtonPropsType>(
+  (props, ref) => {
+    const { children, className, onPageMove, ...rest } = props;
 
-  return (
-    <Button
-      variant="outline"
-      className={cn(
-        `px-1 py-0.5 rounded-full h-fit bg-white border-0 ${className}`,
-      )}
-      onClick={onPageMove}
-      {...rest}
-    >
-      {children}
-    </Button>
-  );
-};
+    return (
+      <Button
+        ref={ref}
+        variant="outline"
+        className={cn(
+          `px-1 py-0.5 rounded-full h-fit bg-white border-0 ${className}`,
+        )}
+        onClick={onPageMove}
+        {...rest}
+      >
+        {children}
+      </Button>
+    );
+  },
+);
 
 export default PostButton;

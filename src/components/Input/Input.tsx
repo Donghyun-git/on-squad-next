@@ -54,7 +54,10 @@ const CustomInput = <T extends FieldValues>(props: CustomInputPropsType<T>) => {
           <div className="w-full">
             {label ? (
               <div className="flex items-center mb-2">
-                <Label htmlFor={name} className="block text-gray-700">
+                <Label
+                  htmlFor={name}
+                  className="block text-grayScale800 font-bold"
+                >
                   {label}
                 </Label>
               </div>
@@ -74,9 +77,9 @@ const CustomInput = <T extends FieldValues>(props: CustomInputPropsType<T>) => {
                     : onChange
                 }
                 className={`${cn(
-                  ` placeholder:text-[#909090] block w-full px-3 py-2 border border-[#f8f8f8] rounded-md  focus:outline-none focus:ring focus:border-blue-300 ${className} ${
+                  ` placeholder:text-grayscale500 block w-full px-3 py-2 border border-[#f8f8f8] rounded-md  focus:outline-none ${className} ${
                     fieldError &&
-                    'border-2 border-red-500 focus-visible:outline-red-500 focus-visible:border-red-500'
+                    'border-2 border-red-500  focus-visible:border-red-400'
                   }`,
                 )}`}
                 {...rest}

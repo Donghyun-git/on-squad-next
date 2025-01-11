@@ -22,7 +22,7 @@ export const useModalStackStore = create<ModalStoreState & ModalStoreAction>(
 
     popModal: () =>
       set((state) => ({
-        modalStack: state.modalStack.slice(0, -1),
+        modalStack: [...state.modalStack.slice(0, -1)],
       })),
 
     onCloseAll: () => set({ modalStack: [] }),

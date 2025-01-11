@@ -42,6 +42,8 @@ const LoginForm = () => {
         ...getValues(),
       });
 
+      console.log(signInRes);
+
       if (!signInRes?.ok) {
         setDisplaySpinner(false);
 

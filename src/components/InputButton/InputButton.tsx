@@ -5,7 +5,6 @@ export interface InputButtonPropsType {
   onSubmit?: () => void;
 
   backgroundColor?: string;
-  color?: string;
 }
 
 const InputButton = (props: InputButtonPropsType) => {
@@ -13,17 +12,15 @@ const InputButton = (props: InputButtonPropsType) => {
     buttonText,
     onSubmit,
     leftIcon,
+    disabled,
     backgroundColor = '#f8f8f8',
-    color = '#909090',
-    ...rest
   } = props;
 
   return (
     <div
-      onClick={onSubmit}
-      className={`absolute flex justify-center items-center px-2 py-1 mx-auto my-0 cursor-pointer right-2 top-2 rounded-md text-xs`}
-      style={{ backgroundColor, color }}
-      {...rest}
+      onClick={!disabled ? onSubmit : () => {}}
+      className={`absolute flex justify-center items-center px-2 py-1 mx-auto my-0 cursor-pointer right-2 top-2 rounded-md text-xs text-grayscale500 `}
+      style={{ backgroundColor }}
     >
       {leftIcon ? (
         <img className="w-3 mr-2" src={leftIcon} alt={leftIcon.split('.')[0]} />

@@ -15,8 +15,9 @@ export interface UserLoginResponse extends ResponseModel {
   };
 }
 
-export const userLoginPostFetch = (params: UserLoginPostFetchParams) =>
-  apiFetch<UserLoginResponse>('/api/v1/auth/login', {
+export const userLoginPostFetch = (params: UserLoginPostFetchParams) => {
+  return apiFetch<UserLoginResponse>('/api/v1/auth/login', {
     method: 'POST',
     body: JSON.stringify(params),
   });
+};

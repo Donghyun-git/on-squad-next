@@ -53,7 +53,6 @@ const JoinForm = () => {
               <InputButton
                 buttonText="중복확인"
                 onSubmit={() => alert('이메일 중복확인')}
-                color="#000"
               />
             }
           />
@@ -65,7 +64,6 @@ const JoinForm = () => {
               <InputButton
                 buttonText="인증번호 확인"
                 onSubmit={() => alert('인증번호 확인')}
-                color="#000"
               />
             }
           />
@@ -93,7 +91,6 @@ const JoinForm = () => {
           button={
             <InputButton
               buttonText="중복확인"
-              color="#000"
               onSubmit={() => alert('닉네임 중복확인')}
             />
           }

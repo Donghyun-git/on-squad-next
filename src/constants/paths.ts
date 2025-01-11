@@ -1,22 +1,23 @@
 export const PATH = Object.freeze({
-  root: "/" as const,
-  community: "/community" as const,
-  crews: "/crews" as const,
-  login: "/login" as const,
-  join: "/join" as const,
+  root: '/' as const,
+  community: '/community' as const,
+  crews: '/crews' as const,
+  login: '/login' as const,
+  join: '/join' as const,
+  addCrew: '/crews/new' as const,
 });
 
 export const BOTTOMTAB_PATH = Object.freeze({
-  root: "/" as const,
-  community: "/community" as const,
-  crews: "/crews" as const,
+  root: '/' as const,
+  community: '/community' as const,
+  crews: '/crews' as const,
 });
 
 export const ROOT_PATH = {
-  root: "/:params" as const,
-  main: "" as const,
-  community: "community" as const,
-  crews: "crews" as const,
-  login: "login" as const,
-  join: "join" as const,
+  root: '/:params' as const,
+  main: '' as const,
+  community: 'community' as const,
+  crews: 'crews' as const,
+  login: 'login' as const,
+  join: 'join' as const,
 };

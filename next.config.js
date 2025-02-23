@@ -2,9 +2,6 @@
 const nextConfig = {
   reactStrictMode: true,
   swcMinify: true,
-  compiler: {
-    autoLabel: 'always',
-  },
 
   async rewrites() {
     return [

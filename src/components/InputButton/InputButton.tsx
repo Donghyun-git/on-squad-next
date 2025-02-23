@@ -3,7 +3,7 @@ export interface InputButtonPropsType {
   leftIcon?: string;
   disabled?: boolean;
   onSubmit?: () => void;
-
+  color?: string;
   backgroundColor?: string;
 }
 
@@ -13,6 +13,7 @@ const InputButton = (props: InputButtonPropsType) => {
     onSubmit,
     leftIcon,
     disabled,
+    color,
     backgroundColor = '#f8f8f8',
   } = props;
 

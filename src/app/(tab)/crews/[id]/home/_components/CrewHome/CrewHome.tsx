@@ -4,6 +4,7 @@ import { useLayoutEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { Plus, Settings, Star } from 'lucide-react';
 import { Avatar } from '@/components/Avatar';
+import dayjs from 'dayjs';
 
 import { Article } from '@/components/Article';
 import { Text } from '@/components/Text';
@@ -16,9 +17,16 @@ import { Slider } from '@/components/Slider';
 import { cn } from '@/lib/utils';
 import { PostButton } from '@/components/PostButton';
 import { Card } from '@/components/Card';
+import { CrewHomeInfoResponseProps } from '@/api/crew/crewHomeInfoGetFetch';
+
+type CrewHomeDataType = PropType<CrewHomeInfoResponseProps, 'data'>;
+
+interface CrewHomeProps {
+  data?: CrewHomeDataType;
+}
 
 //TODO: 서버데이터로 갈아치우기
-const CrewHome = () => {
+const CrewHome = ({ data }: CrewHomeProps) => {
   const router = useRouter();
 
   useLayoutEffect(() => {
@@ -34,15 +42,15 @@ const CrewHome = () => {
   return (
     <div className="container px-0 pt-14 min-h-[calc(100vh)]">
       <div className="w-full tablet:w-full mobile:w-full SE:w-full S2:w-full bg-white cursor-pointer hover:shadow-md transition-all duration-200">
-        <div className="relative overflow-hidden w-full h-[360px] tablet:w-full mobile:w-full SE:w-full S2:w-full">
+        <div className="relative overflow-hidden w-full h-[360px] tablet:w-full mobile:w-full SE:w-full S2:w-full ">
           <Image
-            src="/images/mock1.png"
+            src={data?.crew.imageUrl ?? '/images/mock1.png'}
             alt="크루이미지"
             fill
             sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-            className="w-full"
+            className="w-full px-4"
           />
-          <div className="flex-col absolute bottom-0 left-0 w-full py-2 px-5 flex text-white bg-gradient-to-t from-black via-black/30 to-transparent backdrop-blur-sm  font-bold overflow-hidden truncate gap-3">
+          <div className="flex-col absolute bottom-0 left-0 w-full py-2 px-5 flex text-white bg-gradient-to-t from-black via-black/30 to-transparent backdrop-blur-sm  font-bold overflow-hidden truncate gap-3  bg-black bg-opacity-20">
             <div className="flex justify-between items-center ">
               <Text.base className="font-medium">크루 스페이스</Text.base>
 
@@ -55,7 +63,7 @@ const CrewHome = () => {
               </Button>
               {/* <Badge className="bg-primary text-black">모집중</Badge> */}
             </div>
-            <Text.xl className="font-semibold">강아지 귀여워</Text.xl>
+            <Text.xl className="font-semibold">{data?.crew.name}</Text.xl>
           </div>
         </div>
       </div>
@@ -81,46 +89,62 @@ const CrewHome = () => {
                   </div>
                   <ul className="mt-8 flex flex-col">
                     {/* TODO: 서버데이터로 교체 필요 */}
-                    {Array.from({ length: 4 }).map((_, index) => (
-                      <li
-                        key={index}
-                        className="cursor-pointer"
-                        onClick={() => router.push('/crews/1/announce')}
-                      >
-                        <div
-                          className={cn(
-                            'flex flex-col justify-center gap-2 border-t border-grayScale400 mt-2',
-                            index === 0 && 'border-none',
-                          )}
+                    {data && data.announces.length > 0 ? (
+                      data?.announces.map((announce, index) => (
+                        <li
+                          key={index}
+                          className="cursor-pointer"
+                          onClick={() =>
+                            router.push(`/crews/${data.crew.id}/announce`)
+                          }
                         >
-                          <div className="flex justify-between mt-2">
-                            <Text.base className="font-semibold">
-                              크루 규정 안내(신규 크루원 필독)
-                            </Text.base>
-                            {/* TODO: 공지사항 상단고정 서버 데이터일때만  */}
-                            <Star size={16} fill="#FFCD29" stroke="#FFCD29" />
-                          </div>
-                          <div className="footer flex justify-between items-center">
-                            <div className="flex gap-[3px] items-center">
-                              <div className="flex gap-0.5 items-center">
-                                <Avatar className="w-4 h-4" />
-                                <Text.xs className="pt-[0.05rem]">
-                                  홍길동 크루장
+                          <div
+                            className={cn(
+                              'flex flex-col justify-center gap-2 border-t border-grayScale400 mt-2',
+                              index === 0 && 'border-none',
+                            )}
+                          >
+                            <div className="flex justify-between mt-2">
+                              <Text.base className="font-semibold">
+                                크루 규정 안내(신규 크루원 필독)
+                              </Text.base>
+                              {/* TODO: 공지사항 상단고정 서버 데이터일때만  */}
+                              {announce.fixed && (
+                                <Star
+                                  size={16}
+                                  fill="#FFCD29"
+                                  stroke="#FFCD29"
+                                />
+                              )}
+                            </div>
+                            <div className="footer flex justify-between items-center">
+                              <div className="flex gap-[3px] items-center">
+                                <div className="flex gap-0.5 items-center">
+                                  <Avatar className="w-4 h-4" />
+                                  <Text.xs className="pt-[0.05rem]">
+                                    {announce.memberInfo.nickname}
+                                  </Text.xs>
+                                </div>
+                                <Badge className="px-0.5 py-0">
+                                  <Text.xxs>크루장</Text.xxs>
+                                </Badge>
+                              </div>
+                              <div>
+                                <Text.xs className="text-grayscale500">
+                                  {dayjs(announce.createdAt).format(
+                                    'YYYY년 MM월 DD일',
+                                  )}
                                 </Text.xs>
                               </div>
-                              <Badge className="px-0.5 py-0">
-                                <Text.xxs>크루장</Text.xxs>
-                              </Badge>
-                            </div>
-                            <div>
-                              <Text.xs className="text-grayscale500">
-                                2024-10-12
-                              </Text.xs>
                             </div>
                           </div>
-                        </div>
+                        </li>
+                      ))
+                    ) : (
+                      <li>
+                        <Text.xl> 등록된 공지사항이 없어요.</Text.xl>
                       </li>
-                    ))}
+                    )}
                   </ul>
                 </>
               }
@@ -130,7 +154,7 @@ const CrewHome = () => {
               slot={
                 <div className="flex flex-col gap-3 min-h-[360px]">
                   <Text.lg className="font-bold mb-1">
-                    <h5>공격적인 음악회 크루</h5>
+                    <h5>{data?.crew.name}</h5>
                   </Text.lg>
 
                   <div className="flex gap-2 items-center">
@@ -138,14 +162,12 @@ const CrewHome = () => {
                     <div className="flex gap-1">
                       <Avatar className="w-4 h-4" />
                       <Text.xs className="font-medium pt-[0.05rem]">
-                        홍길동 크루장
+                        {data?.crew.crewOwner.nickname}
                       </Text.xs>
                     </div>
                   </div>
                   <div>
-                    <Text.xs>
-                      수도권 2030 친목 크루 온스쿼드! 소개글 있는 분만 받습니다.
-                    </Text.xs>
+                    <Text.xs>{data?.crew.introduce}</Text.xs>
                   </div>
 
                   <div className="flex gap-1 mt-1">
@@ -155,18 +177,17 @@ const CrewHome = () => {
                   </div>
 
                   <div>
-                    <Text.xs>
-                      수도권 2030 친목 크루 온스쿼드! 소개글 있는 분만 받습니다.
-                      수도권 2030 친목 크루 온스쿼드! 소개글 있는 분만 받습니다.
-                      수도권 2030 친목 크루 온스쿼드! 소개글 있는 분만 받습니다.
-                    </Text.xs>
+                    <Text.xs>{data?.crew.detail}</Text.xs>
                   </div>
 
                   <div className="flex gap-1 flex-wrap items-center mt-auto">
                     {/* TODO: 후에 서버데이터 */}
-                    {Array.from({ length: 5 }).map((_, index) => (
-                      <Badge key={index}>오버워치</Badge>
-                    ))}
+                    {data?.crew.hashtags.map((tag, index) => {
+                      if (index === 0) {
+                        return <Badge key={index}>멤버 수 {tag}+</Badge>;
+                      }
+                      return <Badge key={index}>{tag}</Badge>;
+                    })}
                   </div>
                 </div>
               }
@@ -193,13 +214,7 @@ const CrewHome = () => {
                 <div className="mt-6">
                   <ul>
                     {/* TODO: 서버데이터 교체 필요 */}
-                    {[
-                      '홍길동',
-                      '브레멘',
-                      '감스트',
-                      '조조바이든',
-                      '도널드 트럼프',
-                    ].map((name, index) => (
+                    {data?.topMembers.map((member, index) => (
                       <li key={index}>
                         <div
                           className={cn(
@@ -208,13 +223,13 @@ const CrewHome = () => {
                           )}
                         >
                           <Text.xs className="inline-block font-bold">
-                            {index + 1}위
+                            {member.rank}위
                           </Text.xs>
                           <div className="flex gap-[3px] items-center">
                             <div className="flex gap-0.5 items-center">
                               <Avatar className="w-5 h-5 mr-1" />
                               <Text.base className="pt-[0.09rem] font-semibold">
-                                {name}
+                                {member.nickname}
                               </Text.base>
                             </div>
                           </div>
@@ -242,18 +257,22 @@ const CrewHome = () => {
             </div>
 
             <div className="flex flex-col gap-3 pb-10">
-              {Array.from({ length: 10 }).map((_, index) => (
+              {data?.squads.map((squad, index) => (
                 <Card
                   key={index}
                   onClick={() => alert('cardlist fuck')}
                   title={
                     <div className="flex justify-between items-center">
                       <Text.sm className="font-bold py-3">
-                        <h5>게임할사람</h5>
+                        <h5>{squad.title}</h5>
                       </Text.sm>
                       <div className="flex items-center gap-2">
-                        <Badge>게임</Badge>
-                        <Badge>1/10 명</Badge>
+                        {squad.categories.slice(0, 2).map((tag) => (
+                          <Badge>{tag}</Badge>
+                        ))}
+                        <Badge>
+                          {squad.remain}/{squad.capacity} 명
+                        </Badge>
                       </div>
                     </div>
                   }
@@ -261,15 +280,11 @@ const CrewHome = () => {
                   <div className="flex gap-1">
                     <Avatar className="w-4 h-4" />
                     <Text.xs className="font-medium pt-[0.05rem]">
-                      홍길동 크루장
+                      {squad.squadOwner.nickname}
                     </Text.xs>
                   </div>
                   <div className="max-h-14 line-clamp-4 text-ellipsis mt-2">
-                    <Text.xs className="font-medium">
-                      게임할사람 그냥 다 쳐 모여라게임할사람 그냥 다 쳐
-                      모여주세요 모여라게임할사람 그냥 다 쳐 모여라게임할사람
-                      그냥 다 쳐 모여주세요
-                    </Text.xs>
+                    <Text.xs className="font-medium">{squad.content}</Text.xs>
                   </div>
                 </Card>
               ))}

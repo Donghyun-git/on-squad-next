@@ -59,6 +59,7 @@ const CrewList = ({ list }: CrewListPropsType) => {
                           })}
                         </>
                       }
+                      onClick={() => router.push(`/crews/${crew.id}`)}
                     />
                   ))
                 : null}

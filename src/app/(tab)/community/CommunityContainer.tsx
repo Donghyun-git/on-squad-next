@@ -7,8 +7,13 @@ import { Search } from './_components/Search';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { searchSchema } from '@/components/Searchbar/validator';
 import { CrewList } from './_components/CrewList';
+import { CrewListResponseProps } from '@/api/crew/crewListGetFetch';
 
-const CommunityContainer = () => {
+export interface CrewListDataProps {
+  list: PropType<CrewListResponseProps, 'data'>;
+}
+
+const CommunityContainer = ({ list: crewList }: CrewListDataProps) => {
   const method = useForm({
     resolver: yupResolver(searchSchema),
     values: {
@@ -32,7 +37,7 @@ const CommunityContainer = () => {
         <Text.lg className="pt-14 font-semibold">
           <h3>모집중인 크루</h3>
         </Text.lg>
-        <CrewList />
+        <CrewList list={crewList ?? []} />
       </div>
     </FormProvider>
   );

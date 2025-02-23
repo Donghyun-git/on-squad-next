@@ -1,6 +1,12 @@
 import { apiFetch } from '../common';
 import { MbtiType, ResponseModel } from '../model';
 
+export interface CrewListGetFetchParams {
+  size?: number;
+  page?: number;
+  crewName?: string;
+}
+
 export interface CrewListResponseProps extends ResponseModel {
   data: {
     /**
@@ -57,19 +63,19 @@ export interface CrewListResponseProps extends ResponseModel {
   }[];
 }
 
-export const crewListGetFetch = () =>
-  apiFetch<CrewListResponseProps>('/api/v1/crews', {
+export const crewListGetFetch = (params?: CrewListGetFetchParams) => {
+  if (params) {
+    return apiFetch<CrewListResponseProps>(
+      `/api/v1/crews?size=${params.size}?page=${params.page}?crewName=${params.crewName}`,
+      {
+        method: 'GET',
+        cache: 'no-store',
+      },
+    );
+  }
+
+  return apiFetch<CrewListResponseProps>('/api/v1/crews', {
     method: 'GET',
     cache: 'no-store',
   });
-
-// export const crewListGetFetch = async () => {
-//   const res = await fetch('http://192.168.1.47:8087/api/v1/crews', {
-//     headers: {
-//       'Content-Type': 'application/json',
-//     },
-//     method: 'GET',
-//   });
-
-//   return res.json();
-// };
+};

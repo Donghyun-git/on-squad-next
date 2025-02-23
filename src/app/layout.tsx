@@ -6,6 +6,7 @@ import Providers from '@/services/providers';
 import { cn } from '@/lib/utils';
 import { Toaster } from '@/components/ui/toaster';
 import './globals.css';
+import 'quill/dist/quill.core.css';
 
 import { Wrapper } from '@/components/Wrapper';
 import { ShowBottomTab } from '@/components/ShowBottomTab';

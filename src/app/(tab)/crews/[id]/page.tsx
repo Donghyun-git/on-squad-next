@@ -1,16 +1,46 @@
 import React from 'react';
 import { Appbar } from '@/components/Appbar';
 import { CrewDetail } from './_components/CrewDetail';
+import {
+  crewDetailOptions,
+  CREW_DETAIL_QUERY_KEY,
+} from '@/services/options/crews/crewDetailOptions';
+import { dehydrate, HydrationBoundary } from '@tanstack/react-query';
+import { getQueryClient } from '@/services/get-query-client';
+import { CrewDetailResponseProps } from '@/api/crew/crewDetailGetFetch';
+
+interface CrewDetailPageProps {
+  params: { id: string };
+  searchParams?: { [key: string]: string | string[] | undefined };
+}
+
+export type CrewDetailDataType = PropType<CrewDetailResponseProps, 'data'>;
 
 /**
  * 크루 상세 페이지
  */
-const CrewDetailPage = () => {
-  //TODO: 서버에서 받아온 해당 크루의 타이틀을 Appbar props로 넘겨야 함.
+const CrewDetailPage = async ({ params }: CrewDetailPageProps) => {
+  const { id } = params;
+
+  const crewId = parseInt(id, 10);
+
+  const queryClient = getQueryClient();
+
+  await queryClient.prefetchQuery(crewDetailOptions({ crewId }));
+
+  const crewDetailData = queryClient.getQueryData<CrewDetailDataType>([
+    CREW_DETAIL_QUERY_KEY,
+    crewId,
+  ]);
+
+  console.log(crewDetailData, 'Fuck');
   return (
     <>
-      <Appbar isMenuHeader={false} title="공격적인 음악회 크루" />
-      <CrewDetail />
+      <Appbar isMenuHeader={false} title={crewDetailData?.name} />
+
+      <HydrationBoundary state={dehydrate(queryClient)}>
+        <CrewDetail data={crewDetailData} />
+      </HydrationBoundary>
     </>
   );
 };

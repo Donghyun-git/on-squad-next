@@ -13,16 +13,8 @@ import {
 import { CrewListResponseProps } from '@/api/crew/crewListGetFetch';
 import { HydrationBoundary, dehydrate } from '@tanstack/react-query';
 
-import { crewListGetFetch } from '@/api/crew/crewListGetFetch';
-import { Suspense } from 'react';
-import dynamic from 'next/dynamic';
-
-// const CrewList = dynamic(
-//   () => import('./_component/CrewList').then((rcc) => rcc.CrewList),
-//   { ssr: false },
-// );
-
 export type CrewListDataType = PropType<CrewListResponseProps, 'data'>;
+
 /**
  * 랜딩
  */

@@ -40,7 +40,7 @@ const AnnounceList = () => {
 
                 <PostButton
                   className="border border-primary px-2 py-0.5"
-                  onPageMove={() => alert('fuck')}
+                  onPageMove={() => alert('글쓰기 페이지 Navigate')}
                 >
                   <PencilLine size={12} strokeWidth={2} />
                   <Text.xxs className="ml-1 font-bold">글쓰기</Text.xxs>

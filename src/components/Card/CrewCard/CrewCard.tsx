@@ -14,7 +14,7 @@ export interface CrewCardPropsType {
   /**
    * 크루 대표이미지
    */
-  crewImage?: string;
+  crewImage: string;
 
   /**
    * 프로필이미지
@@ -62,7 +62,7 @@ export interface CrewCardPropsType {
 const CrewCard = (props: CrewCardPropsType) => {
   const {
     title,
-    crewImage = '/images/mock.png',
+    crewImage,
     userImage,
     description,
     tagSlot,
@@ -75,12 +75,16 @@ const CrewCard = (props: CrewCardPropsType) => {
       className="w-[20rem] tablet:w-full mobile:w-full SE:w-full S2:w-full bg-white rounded-2xl cursor-pointer hover:shadow-md transition-all duration-200"
       onClick={onClick}
     >
-      <div className="relative rounded-t-lg overflow-hidden w-[20rem] h-[15rem] tablet:w-full mobile:w-full SE:w-full S2:w-full">
-        <img
+      <div className="flex relative rounded-t-lg overflow-hidden w-[20rem] h-[15rem] tablet:w-full mobile:w-full SE:w-full S2:w-full">
+        <Image
           src={crewImage}
           alt="크루이미지"
+          width={0}
+          height={0}
+          sizes="100vw"
+          style={{ width: '100%', height: 'auto' }}
           // sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-          className="rounded-t-lg w-full"
+          className="rounded-t-lg w-full px-4"
         />
         <Text.xl className="absolute bottom-0 left-0 w-full p-2 flex items-center text-white bg-gradient-to-t from-black via-black/30 to-transparent backdrop-blur-sm  font-bold overflow-hidden truncate">
           {title}

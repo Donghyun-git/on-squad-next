@@ -24,13 +24,19 @@ export const addCrewSchema = yup.object().shape({
     .min(1, '최소 1개의 해시태그가 필요합니다.')
     .max(5, '해시태그는 최대 5개입니다.'),
 
-  file: yup
-    .mixed()
-    .nullable()
-    .required('크루 대표이미지를 선택해주세요.')
-    .test(
-      'is-file',
-      '크루 대표이미지를 선택해주세요. (png, jpg, svg)',
-      (value) => value instanceof File,
-    ),
+  file: yup.lazy(() =>
+    yup
+      .mixed()
+      .nullable()
+      .when('file', (file, schema) => {
+        console.log(file, schema);
+        return file instanceof File
+          ? schema.test(
+              'is-file',
+              '크루 대표이미지를 선택해주세요. (png, jpg, svg)',
+              (value) => !value || value instanceof File, // 파일이 없거나 파일 인스턴스일 때만 통과
+            )
+          : schema.notRequired();
+      }),
+  ),
 });

@@ -55,6 +55,43 @@ export const authOptions: NextAuthOptions = {
         );
       },
     }),
+    CredentialsProvider({
+      id: 'kakao', // id 추가
+      name: 'kakao',
+      credentials: {
+        accessToken: { type: 'text' },
+        refreshToken: { type: 'text' },
+      }, // 빈 객체로 설정
+      async authorize(credentials, req) {
+        try {
+          console.log('kakao Credentials:', credentials);
+
+          if (!credentials) {
+            console.error('No credentials provided');
+            return null;
+          }
+
+          const userInfoResponse = await userInfoGetFetch({
+            accessToken: credentials.accessToken,
+          });
+
+          if (userInfoResponse.data.error) {
+            throw new Error(userInfoResponse.data.error?.message);
+          }
+
+          return (
+            {
+              ...userInfoResponse.data.data,
+              accessToken: credentials.accessToken,
+              refreshToken: credentials.refreshToken,
+            } || null
+          );
+        } catch (error) {
+          console.error('Kakao login error:', error);
+          throw error;
+        }
+      },
+    }),
   ],
 
   callbacks: {

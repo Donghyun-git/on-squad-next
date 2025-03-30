@@ -1,3 +1,5 @@
+import React from 'react';
+
 import type { Metadata, Viewport } from 'next';
 
 import Script from 'next/script';
@@ -14,8 +16,9 @@ import { Modal } from '@/components/Modal';
 
 import { SessionProvider } from '@/providers/SessionProvider';
 
-import { HydrationBoundary, dehydrate } from '@tanstack/react-query';
-import { getQueryClient } from '@/services/get-query-client';
+import { ErrorHandlingWrapper } from './_component/ErrorBoundary';
+import { ErrorFallback } from './_component/ErrorFallback';
+import { Spinner } from '@/components/Spinner';
 
 export const metadata: Metadata = {
   title: '온스쿼드 - 취미생활의 아지트',
@@ -29,21 +32,14 @@ export const viewport: Viewport = {
   userScalable: false,
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const queryClient = getQueryClient();
-
   return (
     <html lang="ko">
-      <head>
-        <link
-          href="https://fonts.googleapis.com/css2?family=Pretendard:wght@400;500;700&display=swap"
-          rel="stylesheet"
-        />
-      </head>
+      <head></head>
 
       <Script
         strategy="lazyOnload"
@@ -51,13 +47,16 @@ export default function RootLayout({
       />
       <body className={cn('bg-background antialiased')}>
         <SessionProvider>
-          <Providers>
-            <Wrapper>
-              <HydrationBoundary state={dehydrate(queryClient)}>
+          <ErrorHandlingWrapper
+            fallbackComponent={ErrorFallback}
+            suspenseFallback={<Spinner />}
+          >
+            <Providers>
+              <Wrapper>
                 <ShowBottomTab>{children}</ShowBottomTab>
-              </HydrationBoundary>
-            </Wrapper>
-          </Providers>
+              </Wrapper>
+            </Providers>
+          </ErrorHandlingWrapper>
           <Toaster />
           <Modal />
         </SessionProvider>

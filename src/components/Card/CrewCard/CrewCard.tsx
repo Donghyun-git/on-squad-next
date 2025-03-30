@@ -14,7 +14,7 @@ export interface CrewCardPropsType {
   /**
    * 크루 대표이미지
    */
-  crewImage: string;
+  crewImage?: string;
 
   /**
    * 프로필이미지
@@ -77,7 +77,7 @@ const CrewCard = (props: CrewCardPropsType) => {
     >
       <div className="flex relative rounded-t-lg overflow-hidden w-[20rem] h-[15rem] tablet:w-full mobile:w-full SE:w-full S2:w-full">
         <Image
-          src={crewImage}
+          src={crewImage || '/images/mock1.png'}
           alt="크루이미지"
           width={0}
           height={0}

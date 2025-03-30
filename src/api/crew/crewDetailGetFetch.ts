@@ -70,7 +70,4 @@ export interface CrewDetailResponseProps extends ResponseModel {
  * 크루 상세 정보 조회
  */
 export const crewDetailGetFetch = ({ crewId }: CrewDetailGetFetchParams) =>
-  apiFetch<CrewDetailResponseProps>(`/api/v1/crew?crewId=${crewId}`, {
-    method: 'GET',
-    cache: 'no-store',
-  });
+  apiFetch.get<CrewDetailResponseProps>(`/api/crews/${crewId}`);

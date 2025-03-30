@@ -1,9 +1,10 @@
+import { AxiosRequestConfig } from 'axios';
 import { apiFetch } from '../common';
 import { ResponseModel } from '../model';
 
 export interface UserLoginPostFetchParams {
-  email?: string;
-  password?: string;
+  email: string;
+  password: string;
 }
 
 export interface UserLoginResponse extends ResponseModel {
@@ -15,9 +16,5 @@ export interface UserLoginResponse extends ResponseModel {
   };
 }
 
-export const userLoginPostFetch = (params: UserLoginPostFetchParams) => {
-  return apiFetch<UserLoginResponse>('/api/v1/auth/login', {
-    method: 'POST',
-    body: JSON.stringify(params),
-  });
-};
+export const userLoginPostFetch = (params: UserLoginPostFetchParams) =>
+  apiFetch.post<UserLoginResponse>('/api/v1/auth/login', params);

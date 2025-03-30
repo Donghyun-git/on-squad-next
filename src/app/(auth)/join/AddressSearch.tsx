@@ -12,7 +12,7 @@ import {
 import { Input } from '@/components/Input';
 import { JoinSchemaType } from './validator';
 import { InputButton } from '@/components/InputButton';
-
+import Image from 'next/image';
 interface AddressSearchProps<T extends FieldValues> {
   name: Path<T>;
   onAddressChange: (address: string) => void;
@@ -40,7 +40,6 @@ const AddressSearch = <T extends FieldValues>(props: AddressSearchProps<T>) => {
     );
 
     new window.daum.Postcode({
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       oncomplete: (data: any) => {
         let addr = '';
 
@@ -114,7 +113,7 @@ const AddressSearch = <T extends FieldValues>(props: AddressSearchProps<T>) => {
         className="w-full h-auto relative border border-black my-1 hidden"
         ref={wrapRef}
       >
-        <img
+        <Image
           src="//t1.daumcdn.net/postcode/resource/images/close.png"
           className="cursur-pointer absolute right-0 top-[-1px] z-10"
           onClick={foldDaumPostcode}

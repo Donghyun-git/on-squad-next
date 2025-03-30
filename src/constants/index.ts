@@ -12,6 +12,12 @@ export const HEADER_TEXT = [
   },
 ] as const;
 
+export const USER_TYPE = Object.freeze({
+  kakao: '카카오' as const,
+  general: '일반' as const,
+  google: '구글' as const,
+});
+
 export const HASH_TAG = [
   '활발한',
   '트랜디한',

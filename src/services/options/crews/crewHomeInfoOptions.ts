@@ -14,8 +14,16 @@ export const crewHomeInfoOptions = (params: CrewHomeInfoGetFetchParams) =>
   queryOptions({
     queryKey: [CREW_HOME_INFO_QUERY_KEY, params.crewId, params.category],
     queryFn: async () => {
-      const res = await crewHomeInfoGetFetch(params);
+      try {
+        const res = await crewHomeInfoGetFetch(params);
 
-      return res.data.data;
+        if (res.data.error) {
+          throw new Error(res.data.error.message);
+        }
+
+        return res.data;
+      } catch (error) {
+        throw error;
+      }
     },
   });

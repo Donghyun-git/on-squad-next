@@ -23,6 +23,4 @@ export interface CrewCheckResponseProps extends ResponseModel {
  * 크루명 중복조회
  */
 export const crewCheckGetFetch = ({ crewName }: CrewCheckGetFetchParams) =>
-  apiFetch<CrewCheckResponseProps>(`/api/v1/crew/check?crewName=${crewName}`, {
-    method: 'GET',
-  });
+  apiFetch.get<CrewCheckResponseProps>(`/api/crew/check?crewName=${crewName}`);

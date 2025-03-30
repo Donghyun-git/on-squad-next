@@ -1,11 +1,13 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Image from 'next/image';
 import { ChevronLeft, Plus, Text as TextIcon } from 'lucide-react';
 import { useSession } from 'next-auth/react';
 import Link from 'next/link';
 import { cn } from '@/lib/utils';
+import { signIn } from 'next-auth/react';
+import { userSocialLoginGetFetch } from '@/api/user/userSocialLoginGetFetch';
 
 import {
   Sheet,
@@ -23,10 +25,11 @@ import { Text } from '../Text';
 import { Profile } from '../Profile';
 
 import { PATH } from '@/constants/paths';
-import { useRouter } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 import { useModalStackStore } from '@/store/useModalStackStore';
 
 import { CountLabel } from '../CountLabel';
+import { USER_TYPE } from '@/constants';
 
 export interface AppbarPropsType {
   isMenuHeader?: boolean;
@@ -38,10 +41,33 @@ const Appbar = ({ isMenuHeader = true, title }: AppbarPropsType) => {
   const { data: session } = useSession();
 
   const modalStack = useModalStackStore((state) => state.modalStack);
+  const searchParams = useSearchParams();
 
   const [isOpen, setIsOpen] = useState<boolean>(false);
 
   const router = useRouter();
+
+  useEffect(() => {
+    const accessToken = searchParams.get('accessToken');
+    const refreshToken = searchParams.get('refreshToken');
+
+    if (accessToken && refreshToken) {
+      (async () => {
+        try {
+          await signIn('kakao', {
+            redirect: false,
+            callbackUrl: PATH.root,
+            accessToken,
+            refreshToken,
+          });
+
+          router.replace(PATH.root);
+        } catch (error) {
+          console.error(error);
+        }
+      })();
+    }
+  }, [searchParams, router]);
 
   if (!isMenuHeader) {
     return (
@@ -129,21 +155,31 @@ const Appbar = ({ isMenuHeader = true, title }: AppbarPropsType) => {
                     </Link>
                   </SheetClose>
                   <SheetClose asChild>
-                    <Link
-                      className="w-full focus-visible:outline-none"
-                      href="/kakao/callback"
+                    <Button
+                      className="w-full gap-2 text-semibold bg-kakao hover:bg-kakao-hover active:bg-kakao-hover text-kakao-text focus-visible:outline-kakao"
+                      onClick={async () => {
+                        try {
+                          const kakaoLoginRes = await userSocialLoginGetFetch({
+                            platform: 'kakao',
+                          });
+
+                          console.log(kakaoLoginRes, '카카오 로그인 응답');
+
+                          location.href = kakaoLoginRes.headers.location;
+                        } catch (error) {
+                          console.error('카카오 로그인 실패', error);
+                        }
+                      }}
                     >
-                      <Button className="w-full gap-2 text-semibold bg-kakao hover:bg-kakao-hover active:bg-kakao-hover text-kakao-text focus-visible:outline-kakao">
-                        <Image
-                          src="/icons/kakaologo.svg"
-                          alt="카카오로고"
-                          width={20}
-                          height={20}
-                          priority
-                        />
-                        카카오로 로그인하기
-                      </Button>
-                    </Link>
+                      <Image
+                        src="/icons/kakaologo.svg"
+                        alt="카카오로고"
+                        width={20}
+                        height={20}
+                        priority
+                      />
+                      카카오로 로그인하기
+                    </Button>
                   </SheetClose>
                 </div>
                 <div className="flex flex-col gap-2 mt-8 items-center text-gray-700">
@@ -170,7 +206,9 @@ const Appbar = ({ isMenuHeader = true, title }: AppbarPropsType) => {
                       <div className="px-3 py-2 text-grayscale700">
                         {session.email}
                       </div>
-                      <NavButton>비밀번호 변경</NavButton>
+                      {session.userType === USER_TYPE.general && (
+                        <NavButton>비밀번호 변경</NavButton>
+                      )}
                     </li>
                     <li>
                       <Separator className="mt-6 mb-3" />

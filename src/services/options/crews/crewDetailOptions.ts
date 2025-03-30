@@ -14,8 +14,14 @@ export const crewDetailOptions = ({ crewId }: CrewDetailGetFetchParams) =>
   queryOptions({
     queryKey: [CREW_DETAIL_QUERY_KEY, crewId],
     queryFn: async () => {
-      const res = await crewDetailGetFetch({ crewId });
+      try {
+        const res = await crewDetailGetFetch({ crewId });
+        // 응답이 성공이 아닌 경우 에러를 throw
 
-      return res.data.data;
+        return res.data.data;
+      } catch (error) {
+        throw error;
+      }
     },
+    throwOnError: true,
   });

@@ -21,7 +21,7 @@ const CrewList = ({ list: crewList }: CrewListDataProps) => {
       {crewList?.map((crew) => (
         <CrewCard
           key={crew.id}
-          crewImage={crew.imageUrl}
+          crewImage={crew.imageUrl || '/images/mock1.png'}
           ownerName={crew.crewOwner.nickname}
           title={crew.name}
           description={crew.introduce}

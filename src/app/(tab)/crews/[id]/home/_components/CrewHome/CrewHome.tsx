@@ -72,6 +72,7 @@ const CrewHome = ({ data }: CrewHomeProps) => {
         <Slider
           slot={[
             <Article
+              key="notice"
               className="w-full p-3 min-h-[360px]"
               slot={
                 <>
@@ -150,6 +151,7 @@ const CrewHome = ({ data }: CrewHomeProps) => {
               }
             />,
             <Article
+              key="info"
               className="w-full p-3 min-h-[360px]"
               slot={
                 <div className="flex flex-col gap-3 min-h-[360px]">
@@ -267,8 +269,8 @@ const CrewHome = ({ data }: CrewHomeProps) => {
                         <h5>{squad.title}</h5>
                       </Text.sm>
                       <div className="flex items-center gap-2">
-                        {squad.categories.slice(0, 2).map((tag) => (
-                          <Badge>{tag}</Badge>
+                        {squad.categories.slice(0, 2).map((tag, index) => (
+                          <Badge key={index}>{tag}</Badge>
                         ))}
                         <Badge>
                           {squad.remain}/{squad.capacity} 명

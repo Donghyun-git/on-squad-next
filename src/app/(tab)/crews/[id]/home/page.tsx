@@ -1,5 +1,9 @@
 import React from 'react';
-import { HydrationBoundary, dehydrate } from '@tanstack/react-query';
+import {
+  HydrationBoundary,
+  QueryClient,
+  dehydrate,
+} from '@tanstack/react-query';
 
 import { Appbar } from '@/components/Appbar';
 import { CrewHome } from './_components/CrewHome';
@@ -12,6 +16,24 @@ import { getQueryClient } from '@/services/get-query-client';
 import { CrewHomeInfoResponseProps } from '@/api/crew/crewHomeInfoGetFetch';
 
 type CrewHomeDataType = PropType<CrewHomeInfoResponseProps, 'data'>;
+
+const getHomeData = async (
+  queryClient: QueryClient,
+  crewId: number,
+  category: string,
+) => {
+  try {
+    await queryClient.fetchQuery(
+      crewHomeInfoOptions({
+        crewId,
+        category,
+      }),
+    );
+  } catch (error) {
+    console.error('크루 홈 데이터 가져오기 실패:', error);
+    throw error;
+  }
+};
 
 const CrewHomePage = async ({
   params,
@@ -27,12 +49,7 @@ const CrewHomePage = async ({
 
   const queryClient = getQueryClient();
 
-  await queryClient.prefetchQuery(
-    crewHomeInfoOptions({
-      crewId,
-      category,
-    }),
-  );
+  await getHomeData(queryClient, crewId, category);
 
   const crewHomeData = queryClient.getQueryData<CrewHomeDataType>([
     CREW_HOME_INFO_QUERY_KEY,
@@ -40,12 +57,11 @@ const CrewHomePage = async ({
     category,
   ]);
 
+  console.log(crewHomeData, 'crewHomeData');
+
   return (
     <>
-      <Appbar
-        isMenuHeader={false}
-        title={crewHomeData?.crew.name ?? '서버 안킴'}
-      />
+      <Appbar isMenuHeader={false} title={crewHomeData?.crew?.name || '크루'} />
       <HydrationBoundary state={dehydrate(queryClient)}>
         <CrewHome data={crewHomeData} />
       </HydrationBoundary>

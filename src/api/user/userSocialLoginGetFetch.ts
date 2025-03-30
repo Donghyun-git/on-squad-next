@@ -5,12 +5,7 @@ export interface SocialLoginGetFetchParams {
   platform: 'kakao' | 'google';
 }
 
-export interface SocialLoginPostFetchParams {
-  headers: {
-    location: string;
-  };
-  body: {};
-}
+export interface SocialLoginResponse {}
 
 /**
  * 소셜 로그인
@@ -19,11 +14,5 @@ export interface SocialLoginPostFetchParams {
  */
 export const userSocialLoginGetFetch = ({
   platform,
-}: SocialLoginGetFetchParams) => {
-  return apiFetch<SocialLoginPostFetchParams>(
-    `/api/v1/login/oauth2/${platform}`,
-    {
-      method: 'GET',
-    },
-  );
-};
+}: SocialLoginGetFetchParams) =>
+  apiFetch.get<SocialLoginResponse>(`/api/login/oauth2/${platform}`);

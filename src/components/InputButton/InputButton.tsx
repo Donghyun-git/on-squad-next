@@ -1,3 +1,5 @@
+import Image from 'next/image';
+
 export interface InputButtonPropsType {
   buttonText: string;
   leftIcon?: string;
@@ -24,7 +26,11 @@ const InputButton = (props: InputButtonPropsType) => {
       style={{ backgroundColor }}
     >
       {leftIcon ? (
-        <img className="w-3 mr-2" src={leftIcon} alt={leftIcon.split('.')[0]} />
+        <Image
+          className="w-3 mr-2"
+          src={leftIcon}
+          alt={leftIcon.split('.')[0]}
+        />
       ) : null}
       {buttonText}
     </div>

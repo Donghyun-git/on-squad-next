@@ -1,6 +1,7 @@
 export interface ResponseModel {
   success?: boolean;
   error?: {
+    code: string;
     message: string;
   };
   status: number;

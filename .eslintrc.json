@@ -1,6 +1,14 @@
 {
-  "extends": ["next/babel", "next/core-web-vitals"],
+  "extends": ["next", "next/core-web-vitals"],
   "rules": {
     "no-undef": "error"
+  },
+  "parserOptions": {
+    "project": "./tsconfig.json"
+  },
+  "globals": {
+    "ValueOf": "readonly",
+    "ArrayType": "readonly",
+    "PropType": "readonly"
   }
 }

@@ -12,7 +12,7 @@ import { CircleX } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { useRouter } from 'next/navigation';
 
-import { CrewDetailDataType } from '../../page';
+import { CrewDetailDataType } from '../../HydrateCrewDetail';
 
 interface CrewDetailProps {
   data?: CrewDetailDataType;
@@ -36,7 +36,7 @@ const CrewDetail = ({ data }: CrewDetailProps) => {
         <div className="relative overflow-hidden w-full h-[360px] tablet:w-full mobile:w-full SE:w-full S2:w-full">
           {data ? (
             <Image
-              src={data.imageUrl}
+              src={data.imageUrl || '/images/mock1.png'}
               alt="크루이미지"
               fill
               sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"

@@ -30,7 +30,7 @@ import { BottomSheet } from '@/components/BottomSheet';
 import { Badge } from '@/components/Badge';
 import { addCrewPostFetch } from '@/api/crew/addCrewPostFetch';
 import { crewListGetFetch } from '@/api/crew/crewListGetFetch';
-
+import Image from 'next/image';
 /**
  * 크루 개설하기 작성 폼
  */
@@ -200,10 +200,12 @@ const AddForm = () => {
                     `w-full h-full object-cover bg-cover bg-center bg-no-repeat`,
                   )}
                 >
-                  <img
+                  <Image
                     className="w-full h-full object-contain rounded-md"
                     src={imageUrl}
                     alt="업로드 이미지"
+                    width={100}
+                    height={100}
                   />
                 </div>
               ) : (

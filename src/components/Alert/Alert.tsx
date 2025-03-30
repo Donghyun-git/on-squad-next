@@ -9,11 +9,16 @@ import {
   AlertDialogOverlay,
   AlertDialogDescription,
 } from '@/components/ui/alert-dialog';
+import { Button } from '../ui/button';
+import { BUTTON } from './style';
+import { cn } from '@/lib/utils';
 
 export interface AlertPropsType {
   title: ReactNode | string;
-  children: ReactNode | ReactNode[];
-  buttonSlot: ReactNode | ReactNode[];
+  headerClassName?: string;
+  children: ReactNode | string;
+  buttonSlot?: ReactNode | ReactNode[];
+  onClick?: () => void;
 }
 
 /**
@@ -54,13 +59,13 @@ export interface AlertPropsType {
     );
  */
 const Alert = (props: AlertPropsType) => {
-  const { title, children, buttonSlot } = props;
+  const { title, headerClassName, children, buttonSlot, onClick } = props;
 
   return (
     <AlertDialog open={true}>
       <AlertDialogOverlay />
       <AlertDialogContent className="p-0">
-        <AlertDialogHeader className="pt-9 px-4">
+        <AlertDialogHeader className={cn('pt-9 px-4', headerClassName)}>
           <AlertDialogTitle className="text-center text-grayscale900 text-xl">
             {title}
           </AlertDialogTitle>
@@ -68,7 +73,15 @@ const Alert = (props: AlertPropsType) => {
         </AlertDialogHeader>
         <div className="px-4 pb-4 text-center">{children}</div>
         <AlertDialogFooter className="px-0 grid grid-cols-1 w-full">
-          <div className="-mx-[0.075rem] -mb-[0.075rem]">{buttonSlot}</div>
+          <div className="-mx-[0.075rem] -mb-[0.075rem]">
+            {buttonSlot || (
+              <>
+                <Button onClick={onClick} className={BUTTON.ACTION}>
+                  확인
+                </Button>
+              </>
+            )}
+          </div>
         </AlertDialogFooter>
       </AlertDialogContent>
     </AlertDialog>

@@ -24,7 +24,7 @@ const TOAST_TIMEOUT = 1500;
 export const useToast = () => {
   const { toast, dismiss: libDismiss } = useLibToast();
 
-  const dismissTimeoutRef = useRef<ReturnType<typeof setTimeout>>();
+  const dismissTimeoutRef = useRef<ReturnType<typeof setTimeout>>(undefined);
 
   const dismiss = () => {
     if (dismissTimeoutRef.current) {

@@ -37,4 +37,6 @@ const PostButton = forwardRef<HTMLButtonElement, PostButtonPropsType>(
   },
 );
 
+PostButton.displayName = 'PostButton';
+
 export default PostButton;

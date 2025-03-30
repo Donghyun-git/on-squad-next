@@ -65,17 +65,10 @@ export interface CrewListResponseProps extends ResponseModel {
 
 export const crewListGetFetch = (params?: CrewListGetFetchParams) => {
   if (params) {
-    return apiFetch<CrewListResponseProps>(
-      `/api/v1/crews?size=${params.size}?page=${params.page}?crewName=${params.crewName}`,
-      {
-        method: 'GET',
-        cache: 'no-store',
-      },
+    return apiFetch.get<CrewListResponseProps>(
+      `/api/crews?size=${params.size}?page=${params.page}?crewName=${params.crewName}`,
     );
   }
 
-  return apiFetch<CrewListResponseProps>('/api/v1/crews', {
-    method: 'GET',
-    cache: 'no-store',
-  });
+  return apiFetch.get<CrewListResponseProps>('/api/crews');
 };

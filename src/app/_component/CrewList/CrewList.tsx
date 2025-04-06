@@ -34,7 +34,7 @@ const CrewList = ({ list }: CrewListPropsType) => {
               </Text.lg>
               <PostButton
                 className="shadow-sm"
-                onPageMove={() => router.push(PATH.addCrew)}
+                onPageMove={() => router.push(PATH.addCrew, { scroll: false })}
               >
                 <Text.xxs className="ml-1 font-bold">크루 개설하기</Text.xxs>
                 <Plus size={12} strokeWidth={2} />
@@ -59,7 +59,9 @@ const CrewList = ({ list }: CrewListPropsType) => {
                           })}
                         </>
                       }
-                      onClick={() => router.push(`/crews/${crew.id}`)}
+                      onClick={() =>
+                        router.push(`/crews/${crew.id}`, { scroll: false })
+                      }
                     />
                   ))
                 : null}
@@ -71,7 +73,7 @@ const CrewList = ({ list }: CrewListPropsType) => {
         <Button
           className="p-2 h-fit font-semibold text-[#909090] hover:text-[#6C6C6C] active:text-[#464646]"
           variant="ghost"
-          onClick={() => router.push(PATH.community)}
+          onClick={() => router.push(PATH.community, { scroll: false })}
         >
           모집중인 크루 더 보러가기
         </Button>

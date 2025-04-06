@@ -138,7 +138,6 @@ const ProfileForm = () => {
     };
   }, []);
 
-  console.log(session.data);
   useEffect(() => {
     if (session.status === 'authenticated' && session.data) {
       reset({
@@ -192,7 +191,7 @@ const ProfileForm = () => {
             <div className="relative border w-24 h-24 border-[#f8f8f8] rounded-3xl flex items-center justify-center">
               <div
                 className={cn(
-                  `w-full h-full object-cover cursor-pointer rounded-3xl overflow-hidden`,
+                  `relative w-full h-full object-cover cursor-pointer rounded-3xl overflow-hidden`,
                 )}
                 onClick={() => {
                   fileRef.current?.click();
@@ -201,8 +200,10 @@ const ProfileForm = () => {
                 <Image
                   src={profileImage}
                   alt="profile"
-                  fill
                   className="w-full h-full object-cover rounded-full"
+                  fill
+                  sizes="100%"
+                  priority
                 />
                 <div className="flex items-center gap-2 absolute bottom-0 right-0 p-1 rounded-full bg-white border border-grayscale300">
                   <Camera size={12} stroke="#909090" />

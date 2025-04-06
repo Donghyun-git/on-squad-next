@@ -53,7 +53,9 @@ const AnnounceList = () => {
                     <li
                       key={index}
                       className="cursor-pointer"
-                      onClick={() => router.push('/crews/1/announce')}
+                      onClick={() =>
+                        router.push('/crews/1/announce', { scroll: false })
+                      }
                     >
                       <div
                         className={cn(

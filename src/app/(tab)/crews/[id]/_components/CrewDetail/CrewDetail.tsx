@@ -31,7 +31,11 @@ const CrewDetail = ({ data }: CrewDetailProps) => {
     <div className="container pt-12 px-0 bg-white min-h-[90vh]">
       <div
         className="w-full tablet:w-full mobile:w-full SE:w-full S2:w-full bg-white cursor-pointer hover:shadow-md transition-all duration-200"
-        onClick={() => router.push(`/crews/${data?.id}/home?category=전체`)}
+        onClick={() =>
+          router.push(`/crews/${data?.id}/home?category=전체`, {
+            scroll: false,
+          })
+        }
       >
         <div className="relative overflow-hidden w-full h-[360px] tablet:w-full mobile:w-full SE:w-full S2:w-full">
           {data ? (

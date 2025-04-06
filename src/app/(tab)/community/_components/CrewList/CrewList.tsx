@@ -32,7 +32,7 @@ const CrewList = ({ list: crewList }: CrewListDataProps) => {
             return <Badge key={i}>{tag}</Badge>;
           })}
           // TODO: 서버데이터의 각 리스트의 키값을 slug로 넘긴다.
-          onClick={() => router.push(`/crews/${crew.id}`)}
+          onClick={() => router.push(`/crews/${crew.id}`, { scroll: false })}
         />
       ))}
     </div>

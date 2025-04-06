@@ -61,7 +61,7 @@ const ChangePasswordForm = () => {
             icon: <CircleCheck />,
           });
 
-          router.push(PATH.root);
+          router.push(PATH.root, { scroll: false });
         } else {
           toast({
             title: '비밀번호 변경에 실패했어요.',

@@ -110,6 +110,7 @@ const BottomTab = () => {
             <Link
               key={item.location}
               href={item.location}
+              scroll={false}
               className={cn(
                 `cursor-pointer relative flex-grow text-center py-3 no-underline text-black w-[33%] flex justify-center items-center flex-col gap-1 ${
                   isActive && 'text-primary rounded-md'

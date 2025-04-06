@@ -65,7 +65,7 @@ const MyCrew = () => {
             </Text.lg>
             <PostButton
               className="mr-4 px-2"
-              onPageMove={() => router.push(PATH.community)}
+              onPageMove={() => router.push(PATH.community, { scroll: false })}
             >
               <Text.xxs className="ml-1 font-bold">
                 모집중인 크루 보러가기

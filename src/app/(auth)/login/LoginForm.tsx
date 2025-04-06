@@ -76,7 +76,7 @@ const LoginForm = () => {
         icon: <CircleX onClick={() => hide()} />,
       });
 
-      router.push(PATH.root);
+      router.push(PATH.root, { scroll: false });
     } catch (error) {
       setDisplaySpinner(false);
 
@@ -109,7 +109,7 @@ const LoginForm = () => {
           <Button
             className="w-fit text-center mt-7 text-gray-500 hover:text-gray-600 active:text-gray-700"
             variant="ghost"
-            onClick={() => router.push(PATH.join)}
+            onClick={() => router.push(PATH.join, { scroll: false })}
           >
             회원가입
           </Button>

@@ -94,7 +94,9 @@ const CrewHome = ({ data }: CrewHomeProps) => {
                           key={index}
                           className="cursor-pointer"
                           onClick={() =>
-                            router.push(`/crews/${data.crew.id}/announce`)
+                            router.push(`/crews/${data.crew.id}/announce`, {
+                              scroll: false,
+                            })
                           }
                         >
                           <div

@@ -97,7 +97,7 @@ const Appbar = ({ isMenuHeader = true, title }: AppbarPropsType) => {
         } ${modalStack.length > 0 ? 'bg-gray50 shadow-none' : 'bg-white'}`,
       )}
     >
-      <Link className="relative w-20 h-20 ml-4" href={PATH.root}>
+      <Link className="relative w-20 h-20 ml-4" href={PATH.root} scroll={false}>
         <Image src="/icons/onsquad_logo.svg" alt="온스쿼드" fill priority />
       </Link>
 
@@ -111,7 +111,7 @@ const Appbar = ({ isMenuHeader = true, title }: AppbarPropsType) => {
               }`,
             )}
           >
-            <Link href="/crews/new">
+            <Link href="/crews/new" scroll={false}>
               <Text.xs>크루 개설하기</Text.xs>
             </Link>
             <Plus className="mb-0.5" size={8} strokeWidth={2} />
@@ -145,6 +145,7 @@ const Appbar = ({ isMenuHeader = true, title }: AppbarPropsType) => {
                     <Link
                       className="w-full focus-visible:outline-none"
                       href={PATH.login}
+                      scroll={false}
                     >
                       <Button
                         className="w-full font-semibold"
@@ -184,7 +185,11 @@ const Appbar = ({ isMenuHeader = true, title }: AppbarPropsType) => {
                 </div>
                 <div className="flex flex-col gap-2 mt-8 items-center text-gray-700">
                   아직 회원이 아니신가요?
-                  <Link className="underline text-blue-500" href={PATH.join}>
+                  <Link
+                    className="underline text-blue-500"
+                    href={PATH.join}
+                    scroll={false}
+                  >
                     회원가입
                   </Link>
                 </div>
@@ -193,7 +198,11 @@ const Appbar = ({ isMenuHeader = true, title }: AppbarPropsType) => {
               <div className="flex flex-col">
                 <div className="flex flex-col items-center justify-center gap-2 mt-6">
                   <SheetClose asChild>
-                    <NavButton onClick={() => router.push(PATH.profile)}>
+                    <NavButton
+                      onClick={() =>
+                        router.push(PATH.profile, { scroll: false })
+                      }
+                    >
                       프로필 편집
                     </NavButton>
                   </SheetClose>
@@ -211,7 +220,7 @@ const Appbar = ({ isMenuHeader = true, title }: AppbarPropsType) => {
                       {session.userType === USER_TYPE.general && (
                         <NavButton
                           onClick={() => {
-                            router.push(PATH.changePassword);
+                            router.push(PATH.changePassword, { scroll: false });
                           }}
                         >
                           비밀번호 변경

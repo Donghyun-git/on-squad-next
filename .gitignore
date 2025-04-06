@@ -9,6 +9,8 @@
 #.env
 .env
 
+*.sh
+
 
 # testing
 /coverage

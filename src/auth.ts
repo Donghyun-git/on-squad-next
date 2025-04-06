@@ -18,6 +18,11 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
         token.addressDetail = user.addressDetail;
         token.accessToken = user.accessToken;
         token.refreshToken = user.refreshToken;
+        token.mbti = user.mbti as string;
+        token.kakaoLink = user.kakaoLink as string;
+        token.profileImage = user.profileImage as string;
+        token.introduce = user.introduce as string;
+
         // token.error = null;
       }
 
@@ -35,6 +40,10 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
       session.addressDetail = token.addressDetail;
       session.accessToken = token.accessToken;
       session.refreshToken = token.refreshToken;
+      session.mbti = token.mbti as string;
+      session.kakaoLink = token.kakaoLink as string;
+      session.profileImage = token.profileImage as string;
+      session.introduce = token.introduce as string;
       // session.error = null;
 
       return session;

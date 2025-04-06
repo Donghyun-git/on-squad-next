@@ -16,6 +16,10 @@ declare module 'next-auth' {
     addressDetail: string;
     accessToken: string;
     refreshToken: string;
+    introduce: string;
+    profileImage: string;
+    mbti: string;
+    kakaoLink: string;
   }
 
   interface Session extends DefaultSession {
@@ -29,6 +33,10 @@ declare module 'next-auth' {
     addressDetail: string;
     accessToken: string;
     refreshToken: string;
+    mbti: string;
+    profileImage?: string;
+    introduce: string;
+    kakaoLink: string;
   }
 }
 

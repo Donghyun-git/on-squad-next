@@ -6,6 +6,7 @@ const nextConfig = {
     domains: [
       'onsquad-bucket.s3.ap-northeast-2.amazonaws.com',
       't1.daumcdn.net',
+      'avatars.githubusercontent.com',
     ],
   },
   api: {

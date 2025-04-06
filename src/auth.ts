@@ -6,7 +6,6 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
   ...authConfig,
   callbacks: {
     async jwt({ token, user }) {
-      console.log(token, user, 'JWT');
       if (user) {
         token.id = user.id as unknown as number;
         token.email = user.email as unknown as string;
@@ -22,8 +21,6 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
         token.kakaoLink = user.kakaoLink as string;
         token.profileImage = user.profileImage as string;
         token.introduce = user.introduce as string;
-
-        // token.error = null;
       }
 
       return token;

@@ -1,13 +1,11 @@
-import { getServerSession } from 'next-auth';
 import { getSession } from 'next-auth/react';
-import { authOptions } from '@/app/api/auth/options';
 import axios from 'axios';
+import { auth } from '@/auth';
 
 export const apiFetch = axios.create({
-  baseURL: 'http://192.168.0.13:8087',
+  baseURL: 'http://192.168.0.10:8087/api',
   headers: {
     'Content-Type': 'application/json',
-    timeout: 5000,
   },
 });
 
@@ -16,6 +14,7 @@ if (typeof window !== 'undefined') {
   apiFetch.interceptors.request.use(async (config) => {
     try {
       const session = await getSession();
+
       if (session) {
         config.headers['Authorization'] = `Bearer ${session.accessToken}`;
       }
@@ -30,7 +29,8 @@ else {
   apiFetch.interceptors.request.use(async (config) => {
     try {
       // 비동기 컨텍스트에서 getServerSession 호출
-      const session = await getServerSession(authOptions);
+      const session = await auth();
+
       if (session) {
         config.headers['Authorization'] = `Bearer ${session.accessToken}`;
       }

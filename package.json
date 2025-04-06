@@ -38,7 +38,7 @@
     "lucide-react": "^0.395.0",
     "msw": "2.1",
     "next": "15.2.4",
-    "next-auth": "^4.24.7",
+    "next-auth": "^5.0.0-beta.25",
     "react": "19.1.0",
     "react-dom": "19.1.0",
     "react-draft-wysiwyg": "^1.15.0",

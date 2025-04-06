@@ -1,12 +1,9 @@
 import NextAuth, {
-  NextAuthOptions,
   User as DefaultUser,
   Session as DefaultSession,
 } from 'next-auth';
-import CredentialsProvider from 'next-auth/providers/credentials';
 import { JWT } from 'next-auth/jwt';
 
-// 기존 User 타입 확장
 declare module 'next-auth' {
   interface User extends DefaultUser {
     id: number;

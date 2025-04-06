@@ -5,8 +5,10 @@ import type { NextRequest } from 'next/server';
 import { PATH } from './constants/paths';
 
 export async function middleware(request: NextRequest) {
-  const cookieStore = cookies();
+  const cookieStore = await cookies();
+
   const accessToken = cookieStore.get('next-auth.session-token')?.value;
+
   const { redirect, next } = NextResponse;
 
   if (!accessToken) {

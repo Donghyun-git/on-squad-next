@@ -15,4 +15,4 @@ export interface SocialLoginResponse {}
 export const userSocialLoginGetFetch = ({
   platform,
 }: SocialLoginGetFetchParams) =>
-  apiFetch.get<SocialLoginResponse>(`/api/login/oauth2/${platform}`);
+  apiFetch.get<SocialLoginResponse>(`/login/oauth2/${platform}`);

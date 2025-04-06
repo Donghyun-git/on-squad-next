@@ -247,5 +247,5 @@ export const crewHomeInfoGetFetch = ({
   category,
 }: CrewHomeInfoGetFetchParams) =>
   apiFetch.get<CrewHomeInfoResponseProps>(
-    `/api/crews/${crewId}/main?page=${page}&size=${size}&category=${category}`,
+    `/crews/${crewId}/main?page=${page}&size=${size}&category=${category}`,
   );

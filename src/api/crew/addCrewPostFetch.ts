@@ -13,7 +13,7 @@ export interface AddCrewPostFetchParams {
 export interface AddCrewResponseProps extends ResponseModel {}
 
 export const addCrewPostFetch = (params: AddCrewPostFetchParams) => {
-  const { file, hashtags, ...rest } = params;
+  const { file, ...rest } = params;
 
   const formData = new FormData();
 
@@ -24,7 +24,6 @@ export const addCrewPostFetch = (params: AddCrewPostFetchParams) => {
       [
         JSON.stringify({
           ...rest,
-          hashTags: hashtags,
         }),
       ],
       {
@@ -33,5 +32,9 @@ export const addCrewPostFetch = (params: AddCrewPostFetchParams) => {
     ),
   );
 
-  return apiFetch.post<AddCrewResponseProps>('/api/crew/new', formData);
+  return apiFetch.post<AddCrewResponseProps>('/crews', formData, {
+    headers: {
+      'Content-Type': 'multipart/form-data',
+    },
+  });
 };

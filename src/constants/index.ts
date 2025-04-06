@@ -97,10 +97,7 @@ export const MBTI = [
   'ENTP',
 ] satisfies MBTIType[];
 
-export const MBTI_LIST = [
-  {
-    title: 'MBTI',
-    value: 'mbti',
-    tags: MBTI,
-  },
-];
+export const MBTI_SELECT_OPTIONS = MBTI.map((mbti) => ({
+  value: mbti,
+  item: mbti,
+}));

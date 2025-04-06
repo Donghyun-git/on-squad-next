@@ -11,7 +11,9 @@ const Profile = (props: ProfilePropsType) => {
 
   return (
     <div className="flex flex-col items-center justify-center gap-6">
-      <Avatar imageUrl={undefined} />
+      <Avatar
+        imageUrl={session?.profileImage || '/icons/default_profile.svg'}
+      />
       {!session ? (
         <span>로그인 후 이용해주세요!</span>
       ) : (

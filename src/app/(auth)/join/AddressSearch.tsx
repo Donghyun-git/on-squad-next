@@ -91,7 +91,7 @@ const AddressSearch = <T extends FieldValues>(props: AddressSearchProps<T>) => {
                   <InputButton
                     buttonText="주소검색"
                     color="#000"
-                    onSubmit={() => searchRef.current?.click()}
+                    onClick={() => searchRef.current?.click()}
                   />
                 }
                 value={value as string}
@@ -114,9 +114,11 @@ const AddressSearch = <T extends FieldValues>(props: AddressSearchProps<T>) => {
         ref={wrapRef}
       >
         <Image
-          src="//t1.daumcdn.net/postcode/resource/images/close.png"
+          src="https://t1.daumcdn.net/postcode/resource/images/close.png"
           className="cursur-pointer absolute right-0 top-[-1px] z-10"
           onClick={foldDaumPostcode}
+          width={16}
+          height={16}
           alt="접기 버튼"
         />
       </div>

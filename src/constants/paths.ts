@@ -5,6 +5,8 @@ export const PATH = Object.freeze({
   login: '/login' as const,
   join: '/join' as const,
   addCrew: '/crews/new' as const,
+  changePassword: '/change-password' as const,
+  profile: '/profile' as const,
 });
 
 export const BOTTOMTAB_PATH = Object.freeze({

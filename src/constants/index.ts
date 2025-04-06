@@ -1,6 +1,20 @@
 import { PATH } from './paths';
 import { type HashTagType } from '@/api/model';
 
+export type MBTIType =
+  | 'ISTJ'
+  | 'ISFJ'
+  | 'INFJ'
+  | 'INTJ'
+  | 'ISTP'
+  | 'ISFP'
+  | 'INFP'
+  | 'INTP'
+  | 'ESTP'
+  | 'ESFP'
+  | 'ENFP'
+  | 'ENTP';
+
 export const HEADER_TEXT = [
   {
     path: PATH.login,
@@ -65,5 +79,28 @@ export const ACCORDION_HASH_TAG_LIST = [
     title: '해시태그',
     value: 'hashtag',
     tags: HASH_TAG,
+  },
+];
+
+export const MBTI = [
+  'ISTJ',
+  'ISFJ',
+  'INFJ',
+  'INTJ',
+  'ISTP',
+  'ISFP',
+  'INFP',
+  'INTP',
+  'ESTP',
+  'ESFP',
+  'ENFP',
+  'ENTP',
+] satisfies MBTIType[];
+
+export const MBTI_LIST = [
+  {
+    title: 'MBTI',
+    value: 'mbti',
+    tags: MBTI,
   },
 ];

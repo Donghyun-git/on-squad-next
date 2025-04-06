@@ -15,7 +15,7 @@ import {
 import { getQueryClient } from '@/services/get-query-client';
 import { CrewHomeInfoResponseProps } from '@/api/crew/crewHomeInfoGetFetch';
 
-type CrewHomeDataType = PropType<CrewHomeInfoResponseProps, 'data'>;
+type CrewHomeDataType = CrewHomeInfoResponseProps;
 
 const getHomeData = async (
   queryClient: QueryClient,
@@ -42,8 +42,8 @@ const CrewHomePage = async ({
   params: { id: string };
   searchParams: { category: string };
 }) => {
-  const { id } = params;
-  const { category = '' } = searchParams;
+  const { id } = await params;
+  const { category = '' } = await searchParams;
 
   const crewId = parseInt(id, 10);
 
@@ -51,19 +51,17 @@ const CrewHomePage = async ({
 
   await getHomeData(queryClient, crewId, category);
 
-  const crewHomeData = queryClient.getQueryData<CrewHomeDataType>([
+  const data = queryClient.getQueryData<CrewHomeDataType>([
     CREW_HOME_INFO_QUERY_KEY,
     crewId,
     category,
   ]);
 
-  console.log(crewHomeData, 'crewHomeData');
-
   return (
     <>
-      <Appbar isMenuHeader={false} title={crewHomeData?.crew?.name || '크루'} />
+      <Appbar isMenuHeader={false} title={data?.data?.crew?.name || '크루'} />
       <HydrationBoundary state={dehydrate(queryClient)}>
-        <CrewHome data={crewHomeData} />
+        <CrewHome data={data?.data} />
       </HydrationBoundary>
     </>
   );

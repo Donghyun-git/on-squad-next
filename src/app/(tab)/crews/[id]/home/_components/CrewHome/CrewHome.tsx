@@ -25,7 +25,6 @@ interface CrewHomeProps {
   data?: CrewHomeDataType;
 }
 
-//TODO: 서버데이터로 갈아치우기
 const CrewHome = ({ data }: CrewHomeProps) => {
   const router = useRouter();
 
@@ -44,7 +43,7 @@ const CrewHome = ({ data }: CrewHomeProps) => {
       <div className="w-full tablet:w-full mobile:w-full SE:w-full S2:w-full bg-white cursor-pointer hover:shadow-md transition-all duration-200">
         <div className="relative overflow-hidden w-full h-[360px] tablet:w-full mobile:w-full SE:w-full S2:w-full ">
           <Image
-            src={data?.crew.imageUrl ?? '/images/mock1.png'}
+            src={data?.crew?.imageUrl || '/images/mock1.png'}
             alt="크루이미지"
             fill
             sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
@@ -63,7 +62,7 @@ const CrewHome = ({ data }: CrewHomeProps) => {
               </Button>
               {/* <Badge className="bg-primary text-black">모집중</Badge> */}
             </div>
-            <Text.xl className="font-semibold">{data?.crew.name}</Text.xl>
+            <Text.xl className="font-semibold">{data?.crew?.name}</Text.xl>
           </div>
         </div>
       </div>
@@ -89,7 +88,6 @@ const CrewHome = ({ data }: CrewHomeProps) => {
                     </Button>
                   </div>
                   <ul className="mt-8 flex flex-col">
-                    {/* TODO: 서버데이터로 교체 필요 */}
                     {data && data.announces.length > 0 ? (
                       data?.announces.map((announce, index) => (
                         <li
@@ -109,7 +107,6 @@ const CrewHome = ({ data }: CrewHomeProps) => {
                               <Text.base className="font-semibold">
                                 크루 규정 안내(신규 크루원 필독)
                               </Text.base>
-                              {/* TODO: 공지사항 상단고정 서버 데이터일때만  */}
                               {announce.fixed && (
                                 <Star
                                   size={16}

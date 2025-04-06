@@ -8,14 +8,19 @@ interface CrewDetailPageProps {
 /**
  * 크루 상세 페이지
  */
-const CrewDetailPage = async (params: CrewDetailPageProps) => {
+const CrewDetailPage = async ({
+  params,
+  searchParams,
+}: CrewDetailPageProps) => {
+  const { id } = await params;
+
   return (
     <>
       {/* <ErrorHandlingWrapper
         fallbackComponent={ErrorFallback}
         suspenseFallback={<Spinner />}
       > */}
-      <HydrateCrewDetail {...params} />
+      <HydrateCrewDetail id={id} searchParams={searchParams} />
       {/* </ErrorHandlingWrapper> */}
     </>
   );

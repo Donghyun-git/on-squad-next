@@ -6,7 +6,7 @@ import { ChevronLeft, Plus, Text as TextIcon } from 'lucide-react';
 import { useSession } from 'next-auth/react';
 import Link from 'next/link';
 import { cn } from '@/lib/utils';
-import { signIn } from 'next-auth/react';
+import { signIn, signOut } from 'next-auth/react';
 import { userSocialLoginGetFetch } from '@/api/user/userSocialLoginGetFetch';
 
 import {
@@ -193,7 +193,9 @@ const Appbar = ({ isMenuHeader = true, title }: AppbarPropsType) => {
               <div className="flex flex-col">
                 <div className="flex flex-col items-center justify-center gap-2 mt-6">
                   <SheetClose asChild>
-                    <NavButton>프로필편집</NavButton>
+                    <NavButton onClick={() => router.push(PATH.profile)}>
+                      프로필 편집
+                    </NavButton>
                   </SheetClose>
                 </div>
                 <Separator className="my-6" />
@@ -207,7 +209,13 @@ const Appbar = ({ isMenuHeader = true, title }: AppbarPropsType) => {
                         {session.email}
                       </div>
                       {session.userType === USER_TYPE.general && (
-                        <NavButton>비밀번호 변경</NavButton>
+                        <NavButton
+                          onClick={() => {
+                            router.push(PATH.changePassword);
+                          }}
+                        >
+                          비밀번호 변경
+                        </NavButton>
                       )}
                     </li>
                     <li>
@@ -238,8 +246,16 @@ const Appbar = ({ isMenuHeader = true, title }: AppbarPropsType) => {
                         </NavButton>
                       </div>
                     </li>
-                    <li>
+                    <li className="mb-6">
                       <Separator className="my-6" />
+
+                      <div className="flex flex-col items-center justify-center gap-2 mt-6">
+                        <SheetClose asChild>
+                          <NavButton onClick={() => signOut()}>
+                            로그아웃
+                          </NavButton>
+                        </SheetClose>
+                      </div>
                     </li>
                     <li className="text-center text-grayscale500 font-semibold">
                       <p className="text-center">최신 버전입니다.</p>

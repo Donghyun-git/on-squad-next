@@ -10,7 +10,7 @@ import { getQueryClient } from '@/services/get-query-client';
 import { CrewDetailResponseProps } from '@/api/crew/crewDetailGetFetch';
 
 interface CrewDetailPageProps {
-  params: { id: string };
+  id: string;
   searchParams?: { [key: string]: string | string[] | undefined };
 }
 
@@ -19,8 +19,7 @@ export type CrewDetailDataType = PropType<CrewDetailResponseProps, 'data'>;
 /**
  * 크루 상세 페이지
  */
-const HydrateCrewDetail = async ({ params }: CrewDetailPageProps) => {
-  const { id } = params;
+const HydrateCrewDetail = async ({ id }: CrewDetailPageProps) => {
   const crewId = parseInt(id, 10);
 
   const queryClient = getQueryClient();
@@ -37,8 +36,6 @@ const HydrateCrewDetail = async ({ params }: CrewDetailPageProps) => {
     CREW_DETAIL_QUERY_KEY,
     crewId,
   ]);
-
-  console.log(crewDetailData, 'crewDetailData');
 
   return (
     <>

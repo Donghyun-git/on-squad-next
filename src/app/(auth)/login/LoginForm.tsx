@@ -38,11 +38,23 @@ const LoginForm = () => {
     try {
       const signInRes = await signIn('credentials', {
         redirect: false,
-        callbackUrl: PATH.root,
+        redirectTo: PATH.root,
         ...getValues(),
       });
 
-      console.log(signInRes);
+      if (signInRes?.error) {
+        const errorMessage = signInRes.code;
+
+        setDisplaySpinner(false);
+
+        toast({
+          title: errorMessage || '로그인 실패',
+          className: TOAST.error,
+          icon: <CircleX onClick={() => hide()} />,
+        });
+
+        return;
+      }
 
       if (!signInRes?.ok) {
         setDisplaySpinner(false);

@@ -29,14 +29,13 @@ import { useModalStackStore } from '@/store/useModalStackStore';
 import { BottomSheet } from '@/components/BottomSheet';
 import { Badge } from '@/components/Badge';
 import { addCrewPostFetch } from '@/api/crew/addCrewPostFetch';
-import { crewListGetFetch } from '@/api/crew/crewListGetFetch';
 import Image from 'next/image';
+import { useApiMutation } from '@/services/useApiMutation';
+
 /**
  * 크루 개설하기 작성 폼
  */
 const AddForm = () => {
-  const queryClient = getQueryClient();
-
   const { toast, hide } = useToast();
 
   const setModal = useModalStackStore((state) => state.pushModal);
@@ -45,6 +44,17 @@ const AddForm = () => {
   const [imageUrl, setImageUrl] = useState<string>('');
   const [displaySpinner, setDisplaySpinner] = useState<boolean>(false);
   const [isDuplicate, setIsDuplicate] = useState<boolean>(true);
+
+  const { mutateAsync: addCrew } = useApiMutation({
+    mutationKey: ['@add-crew'],
+    fetcher: addCrewPostFetch,
+    invalidateKey: ['@crew-list'],
+  });
+
+  const { mutateAsync: checkCrewName } = useApiMutation({
+    mutationKey: ['@check-crew-name'],
+    fetcher: crewCheckGetFetch,
+  });
 
   const fileRef = useRef<HTMLInputElement>(null);
 
@@ -87,15 +97,17 @@ const AddForm = () => {
     try {
       if (!(await trigger('name'))) return;
 
-      const { data } = await crewCheckGetFetch({ crewName: getValues('name') });
+      const { data } = await checkCrewName({
+        crewName: getValues('name'),
+      });
 
-      const duplicate = data.data.duplicate;
+      const duplicate = data.duplicate;
 
       if (duplicate) {
         const crewName = getValues('name');
 
         toast({
-          title: `${crewName} 은 이미 사용 중이에요.`,
+          title: `${crewName}은(는) 이미 사용 중이에요.`,
           icon: <CircleX onClick={() => hide()} />,
           className: TOAST.error,
         });
@@ -119,31 +131,15 @@ const AddForm = () => {
     setDisplaySpinner(true);
 
     try {
-      const res = await addCrewPostFetch({
+      await addCrew({
         ...getValues(),
         file: getValues('file') as File,
       });
 
-      const status = res.data.status;
-
-      if (status !== 201) {
-        setDisplaySpinner(false);
-
-        toast({
-          title: '크루 생성에 실패했어요.',
-          icon: <CircleX onClick={() => hide()} />,
-          className: TOAST.error,
-        });
-
-        return;
-      }
-
-      queryClient.invalidateQueries({ queryKey: ['@crew-list'] });
-
       toast({
         title: '크루 생성에 성공했어요.',
         icon: <CircleX onClick={() => hide()} />,
-        className: TOAST.error,
+        className: TOAST.success,
       });
 
       setTimeout(() => {
@@ -151,6 +147,8 @@ const AddForm = () => {
       }, 1000);
     } catch (error) {
       console.error(error);
+
+      setDisplaySpinner(false);
     }
   });
 
@@ -170,7 +168,7 @@ const AddForm = () => {
                 <InputButton
                   disabled={!isDuplicate}
                   buttonText="중복확인"
-                  onSubmit={handleCrewNameCheck}
+                  onClick={handleCrewNameCheck}
                 />
               }
             />
@@ -262,7 +260,7 @@ const AddForm = () => {
               button={
                 <InputButton
                   buttonText="선택하기"
-                  onSubmit={() =>
+                  onClick={() =>
                     setModal(
                       <FormProvider {...method}>
                         <BottomSheet
